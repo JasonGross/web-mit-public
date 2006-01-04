@@ -1,0 +1,862 @@
+DECLARE FUNCTION Ordinal$ (num AS INTEGER)
+DECLARE FUNCTION CardWork (BYVAL num1 AS DOUBLE, BYVAL num2 AS DOUBLE, BYVAL num3 AS DOUBLE, BYVAL num4 AS DOUBLE, line1() AS STRING, line2() AS STRING, line3() AS STRING)
+DECLARE SUB clrArray ()
+COMMON SHARED line1() AS STRING
+COMMON SHARED line2() AS STRING
+COMMON SHARED line3() AS STRING
+DIM line1(0 TO 1000) AS STRING
+DIM line2(0 TO 1000) AS STRING
+DIM line3(0 TO 1000) AS STRING
+DIM variable AS INTEGER
+DIM variable2 AS DOUBLE
+DIM strnum(0 TO 1000) AS STRING
+DIM printyorn AS INTEGER 'bool
+DIM p(0 TO 4) AS STRING
+DIM e(0 TO 4) AS STRING
+DIM yorn AS STRING * 1
+DIM working AS INTEGER 'bool
+DIM works AS INTEGER
+DIM works1 AS INTEGER
+DIM works2 AS INTEGER
+DIM x AS INTEGER
+DIM n1 AS INTEGER
+DIM n2 AS INTEGER
+DIM n3 AS INTEGER
+DIM n4 AS INTEGER
+DIM n5 AS INTEGER
+DIM o1 AS INTEGER
+DIM o2 AS INTEGER
+DIM o3 AS INTEGER
+DIM o(0 TO 4) AS INTEGER
+DIM paren AS INTEGER
+DIM i AS INTEGER
+DIM counter AS INTEGER
+DIM nu(0 TO 6) AS DOUBLE
+DIM n(0 TO 14) AS DOUBLE
+DIM ts(0 TO 5) AS DOUBLE
+DIM vorr AS STRING * 1
+DIM ik AS STRING
+ON ERROR GOTO errfix
+begin:
+CLEAR
+RESET
+CLS
+PRINT "This program takes 4 numbers and checks to see if there is any way "
+PRINT "(using only the 4 basic operators)"
+PRINT "to make 24 using each number once and only once. (regular acrd)"
+PRINT
+PRINT "This program takes 6 numbers and checks to see if there is any way "
+PRINT "(using only the 4 basic operators)"
+PRINT "to make 24 using the first set of 3 with another number 1 to 9"
+PRINT "and the second set of three with the same 'variable' number,"
+PRINT "using each number once and only once. (variable card)"
+PRINT
+PRINT "Quit (q) or quadruple wheel (w) or variable card (v) or regular card (r)?"
+PRINT
+WHILE ik <> "r" AND ik <> "v" AND ik <> "q" AND ik <> "w"
+    ik = LCASE$(INKEY$)
+WEND
+CLS
+SELECT CASE ik
+  CASE "q"
+    GOTO endandexit
+  CASE "r"
+    n(0) = 0
+    n(1) = 0
+    n(2) = 0
+    n(3) = 0
+    PRINT "First number:"
+    WHILE n(0) = 0
+      INPUT "", n(0)
+    WEND
+    PRINT "Second number:"
+    WHILE n(1) = 0
+      INPUT "", n(1)
+    WEND
+    PRINT "Third number:"
+    WHILE n(2) = 0
+      INPUT "", n(2)
+    WEND
+    PRINT "Fourth number:"
+    WHILE n(3) = 0
+      INPUT "", n(3)
+    WEND
+    PRINT
+    'clrArray
+    IF CardWork(n(0), n(1), n(2), n(3), line1(), line2(), line3()) = 0 THEN
+      PRINT "Does not work."
+    ELSE
+      i = 0
+      WHILE line1(i) <> ""
+        PRINT
+        PRINT line1(i)
+        PRINT line2(i)
+        PRINT line3(i)
+        line1(i) = ""
+        line2(i) = ""
+        line3(i) = ""
+        PRINT "Press any key to continue..."
+        WHILE INKEY$ = ""
+        WEND
+        i = i + 1
+      WEND
+    END IF
+    PRINT "Would you like to solve another card?"
+    yorn = LCASE$(INKEY$)
+    WHILE yorn <> "y" AND yorn <> "n" AND yorn <> "q"
+      yorn = LCASE$(INKEY$)
+    WEND
+    IF yorn = "y" THEN
+      GOTO begin
+    ELSEIF yorn = "q" THEN
+      GOTO endandexit
+    END IF
+    PRINT "Press any key to end..."
+    WHILE INKEY$ = ""
+    WEND
+  CASE "v"
+    n(0) = 0
+    n(1) = 0
+    n(2) = 0
+    n(4) = 0
+    n(5) = 0
+    n(6) = 0
+    PRINT "First Card:"
+    PRINT
+    PRINT "First number:"
+    WHILE n(0) = 0
+      INPUT "", n(0)
+    WEND
+    PRINT "Second number:"
+    WHILE n(1) = 0
+      INPUT "", n(1)
+    WEND
+    PRINT "Third number:"
+    WHILE n(2) = 0
+      INPUT "", n(2)
+    WEND
+    PRINT
+    PRINT "Second Card:"
+    PRINT
+    PRINT "First number:"
+    WHILE n(4) = 0
+      INPUT "", n(4)
+    WEND
+    PRINT "Second number:"
+    WHILE n(5) = 0
+      INPUT "", n(5)
+    WEND
+    PRINT "Third number:"
+    WHILE n(6) = 0
+      INPUT "", n(6)
+    WEND
+    PRINT
+    working = 0
+    FOR variable = 1 TO 9
+      variable2 = variable
+      IF CardWork(n(0), n(1), n(2), variable2, line1(), line2(), line3()) = 1 AND CardWork(n(4), n(5), n(6), variable2, line1(), line2(), line3()) = 1 THEN
+        PRINT variable
+        working = 1
+      END IF
+    NEXT variable
+    IF working = 0 THEN
+      PRINT "Does not work."
+      PRINT
+      PRINT "Would you like to solve another card?"
+      yorn = LCASE$(INKEY$)
+      WHILE yorn <> "y" AND yorn <> "n"
+        yorn = LCASE$(INKEY$)
+      WEND
+      IF yorn = "y" THEN
+        GOTO begin
+      ELSE
+        PRINT "Press any key to end..."
+        WHILE INKEY$ = ""
+        WEND
+        GOTO endandexit
+      END IF
+    ELSE
+      PRINT "Would you like to see the ways to solve for one of these numbers?"
+      yorn = LCASE$(INKEY$)
+      WHILE yorn <> "y" AND yorn <> "n" AND yorn <> "q"
+        yorn = LCASE$(INKEY$)
+      WEND
+      IF yorn = "n" THEN
+        PRINT "Would you like to solve another card?"
+        yorn = LCASE$(INKEY$)
+        WHILE yorn <> "y" AND yorn <> "n"
+          yorn = LCASE$(INKEY$)
+        WEND
+        IF yorn = "y" THEN
+          GOTO begin
+        ELSE
+          PRINT "Press any key to end..."
+          WHILE INKEY$ = ""
+          WEND
+          GOTO endandexit
+        END IF
+      ELSEIF yorn = "y" THEN
+        PRINT
+        variable = 0
+        WHILE variable < 1 OR variable > 9
+          INPUT "What variable"; variable
+        WEND
+        CLS
+        PRINT "First Card:"
+        PRINT
+        variable2 = variable
+        'clrArray
+        temp = CardWork(n(0), n(1), n(2), variable2, line1(), line2(), line3())
+        i = 0
+        WHILE line1(i) <> ""
+          PRINT
+          PRINT line1(i)
+          PRINT line2(i)
+          PRINT line3(i)
+          line1(i) = ""
+          line2(i) = ""
+          line3(i) = ""
+          PRINT "Press any key to continue..."
+          WHILE INKEY$ = ""
+          WEND
+          i = i + 1
+        WEND
+        CLS
+        PRINT "Second Card:"
+        PRINT
+        variable2 = variable
+        'clrArray
+        temp = CardWork(n(4), n(5), n(6), variable2, line1(), line2(), line3())
+        i = 0
+        WHILE line1(i) <> ""
+          PRINT
+          PRINT line1(i)
+          PRINT line2(i)
+          PRINT line3(i)
+          line1(i) = ""
+          line2(i) = ""
+          line3(i) = ""
+          PRINT "Press any key to continue..."
+          WHILE INKEY$ = ""
+          WEND
+          i = i + 1
+        WEND
+      ELSEIF yorn = "q" THEN
+        GOTO endandexit
+      END IF
+    END IF
+  CASE "w"
+    n(0) = 0
+    n(1) = 0
+    n(2) = 0
+    n(4) = 0
+    n(5) = 0
+    n(6) = 0
+    n(7) = 0
+    n(8) = 0
+    n(9) = 0
+    n(10) = 0
+    n(11) = 0
+    n(12) = 0
+    PRINT "First Card:"
+    PRINT
+    PRINT "First number:"
+    WHILE n(0) = 0
+      INPUT "", n(0)
+    WEND
+    PRINT "Second number:"
+    WHILE n(1) = 0
+      INPUT "", n(1)
+    WEND
+    PRINT "Third number:"
+    WHILE n(2) = 0
+      INPUT "", n(2)
+    WEND
+    PRINT
+    PRINT "Second Card:"
+    PRINT
+    PRINT "First number:"
+    WHILE n(4) = 0
+      INPUT "", n(4)
+    WEND
+    PRINT "Second number:"
+    WHILE n(5) = 0
+      INPUT "", n(5)
+    WEND
+    PRINT "Third number:"
+    WHILE n(6) = 0
+      INPUT "", n(6)
+    WEND
+    PRINT
+    PRINT "Third Card:"
+    PRINT
+    PRINT "First number:"
+    WHILE n(7) = 0
+      INPUT "", n(7)
+    WEND
+    PRINT "Second number:"
+    WHILE n(8) = 0
+      INPUT "", n(8)
+    WEND
+    PRINT "Third number:"
+    WHILE n(9) = 0
+      INPUT "", n(9)
+    WEND
+    PRINT
+    PRINT "Fourth Card:"
+    PRINT
+    PRINT "First number:"
+    WHILE n(10) = 0
+      INPUT "", n(10)
+    WEND
+    PRINT "Second number:"
+    WHILE n(11) = 0
+      INPUT "", n(11)
+    WEND
+    PRINT "Third number:"
+    WHILE n(12) = 0
+      INPUT "", n(12)
+    WEND
+    PRINT
+    working = 0
+    FOR variable = 1 TO 9
+      variable2 = variable
+      IF CardWork(n(0), n(1), n(2), variable2, line1(), line2(), line3()) = 1 AND CardWork(n(4), n(5), n(6), variable2, line1(), line2(), line3()) = 1 THEN
+        IF CardWork(n(7), n(8), n(9), variable2, line1(), line2(), line3()) = 1 AND CardWork(n(10), n(11), n(12), variable2, line1(), line2(), line3()) = 1 THEN
+          PRINT variable
+          working = 1
+        END IF
+      END IF
+    NEXT variable
+    IF working = 0 THEN
+      PRINT "Does not work."
+      PRINT
+      PRINT "Would you like to solve another card?"
+      yorn = LCASE$(INKEY$)
+      WHILE yorn <> "y" AND yorn <> "n"
+        yorn = LCASE$(INKEY$)
+      WEND
+      IF yorn = "y" THEN
+        GOTO begin
+      ELSE
+        PRINT "Press any key to end..."
+        WHILE INKEY$ = ""
+        WEND
+        GOTO endandexit
+      END IF
+    ELSE
+      PRINT "Would you like to see the ways to solve for one of these numbers?"
+      yorn = LCASE$(INKEY$)
+      WHILE yorn <> "y" AND yorn <> "n" AND yorn <> "q"
+        yorn = LCASE$(INKEY$)
+      WEND
+      IF yorn = "n" THEN
+        PRINT "Would you like to solve another card?"
+        yorn = LCASE$(INKEY$)
+        WHILE yorn <> "y" AND yorn <> "n"
+          yorn = LCASE$(INKEY$)
+        WEND
+        IF yorn = "y" THEN
+          GOTO begin
+        ELSE
+          PRINT "Press any key to end..."
+          WHILE INKEY$ = ""
+          WEND
+          GOTO endandexit
+        END IF
+      ELSEIF yorn = "y" THEN
+        PRINT
+        variable = 0
+        WHILE variable < 1 OR variable > 9
+          INPUT "What variable"; variable
+        WEND
+        CLS
+        PRINT "First Card:"
+        PRINT
+        variable2 = variable
+        'clrArray
+        temp = CardWork(n(0), n(1), n(2), variable2, line1(), line2(), line3())
+        i = 0
+        WHILE line1(i) <> ""
+          PRINT
+          PRINT line1(i)
+          PRINT line2(i)
+          PRINT line3(i)
+          line1(i) = ""
+          line2(i) = ""
+          line3(i) = ""
+          PRINT "Press any key to continue..."
+          WHILE INKEY$ = ""
+          WEND
+          i = i + 1
+        WEND
+        CLS
+        PRINT "Second Card:"
+        PRINT
+        variable2 = variable
+        'clrArray
+        temp = CardWork(n(4), n(5), n(6), variable2, line1(), line2(), line3())
+        i = 0
+        WHILE line1(i) <> ""
+          PRINT
+          PRINT line1(i)
+          PRINT line2(i)
+          PRINT line3(i)
+          line1(i) = ""
+          line2(i) = ""
+          line3(i) = ""
+          PRINT "Press any key to continue..."
+          WHILE INKEY$ = ""
+          WEND
+          i = i + 1
+        WEND
+        CLS
+        PRINT "Third Card:"
+        PRINT
+        variable2 = variable
+        'clrArray
+        temp = CardWork(n(7), n(8), n(9), variable2, line1(), line2(), line3())
+        i = 0
+        WHILE line1(i) <> ""
+          PRINT
+          PRINT line1(i)
+          PRINT line2(i)
+          PRINT line3(i)
+          line1(i) = ""
+          line2(i) = ""
+          line3(i) = ""
+          PRINT "Press any key to continue..."
+          WHILE INKEY$ = ""
+          WEND
+          i = i + 1
+        WEND
+        CLS
+        PRINT "Fourth Card:"
+        PRINT
+        variable2 = variable
+        'clrArray
+        temp = CardWork(n(10), n(11), n(12), variable2, line1(), line2(), line3())
+        i = 0
+        WHILE line1(i) <> ""
+          PRINT
+          PRINT line1(i)
+          PRINT line2(i)
+          PRINT line3(i)
+          line1(i) = ""
+          line2(i) = ""
+          line3(i) = ""
+          PRINT "Press any key to continue..."
+          WHILE INKEY$ = ""
+          WEND
+          i = i + 1
+        WEND
+      ELSEIF yorn = "q" THEN
+        GOTO endandexit
+      END IF
+    END IF
+  END SELECT
+endandexit:
+PRINT "Would you like to quit (q) or begin agiain (b)?"
+WHILE ik <> "q" AND ik <> "b"
+  ik = INKEY$
+WEND
+IF ik = "b" THEN GOTO begin
+PRINT
+PRINT "Thank you for using this program."
+PRINT
+PRINT "This program was written by Jason Gross."
+END
+errfix:
+SELECT CASE ERR
+        CASE 6
+          PRINT "Overflow. Run-Time Error Code: 6"
+          PRINT
+          PRINT "Press any key to begin again..."
+          WHILE INKEY$ = ""
+          WEND
+          GOTO begin
+
+        CASE ELSE
+          PRINT "Run-Time Error Code:"; ERR
+          PRINT
+          PRINT "Press any key to exit, or press b to begin again..."
+          ik = INKEY$
+          WHILE ik = ""
+            ik = INKEY$
+          WEND
+          IF ik = "b" THEN GOTO begin
+END SELECT
+END
+
+FUNCTION CardWork (BYVAL num1 AS DOUBLE, BYVAL num2 AS DOUBLE, BYVAL num3 AS DOUBLE, BYVAL num4 AS DOUBLE, line1() AS STRING, line2() AS STRING, line3() AS STRING)
+clrArray
+REDIM line1(0 TO 1000) AS STRING
+REDIM line2(0 TO 1000) AS STRING
+REDIM line3(0 TO 1000) AS STRING
+DIM strnum(0 TO 1000) AS STRING
+DIM printyorn AS INTEGER 'bool
+DIM p(0 TO 4) AS STRING
+DIM e(0 TO 4) AS STRING
+DIM yorn AS STRING * 1
+DIM working AS INTEGER 'bool
+DIM works AS INTEGER
+works = 0
+DIM works1 AS INTEGER
+DIM works2 AS INTEGER
+DIM x AS INTEGER
+DIM n1 AS INTEGER
+DIM n2 AS INTEGER
+DIM n3 AS INTEGER
+DIM n4 AS INTEGER
+DIM n5 AS INTEGER
+DIM o1 AS INTEGER
+DIM o2 AS INTEGER
+DIM o3 AS INTEGER
+DIM o(0 TO 4) AS INTEGER
+DIM paren AS INTEGER
+DIM i AS INTEGER
+DIM counter AS INTEGER
+DIM nu(0 TO 6) AS DOUBLE
+DIM n(0 TO 6) AS DOUBLE
+DIM ts(0 TO 5) AS DOUBLE
+DIM vorr AS STRING * 1
+DIM ik AS STRING
+DIM linecounter AS INTEGER
+n(0) = num1
+n(1) = num2
+n(2) = num3
+n(3) = num4
+FOR n1 = 0 TO 3
+  FOR n2 = 0 TO 3
+    IF n2 <> n1 THEN
+      FOR n3 = 0 TO 3
+        IF n3 <> n2 AND n3 <> n1 THEN
+          FOR n4 = 0 TO 3
+            IF n4 <> n3 AND n4 <> n2 AND n4 <> n1 THEN
+              FOR o1 = 0 TO 3
+                FOR o2 = 0 TO 3
+                  FOR o3 = 0 TO 3
+                    FOR paren = 0 TO 3
+                      nu(0) = n(n1)
+                      nu(1) = n(n2)
+                      nu(2) = n(n3)
+                      nu(3) = n(n4)
+                      ts(0) = nu(0)
+                      o(0) = o1
+                      o(1) = o2
+                      o(2) = o3
+                      IF paren = 0 THEN
+                        SELECT CASE o(0)
+                          CASE 0
+                            p(1) = STR$(ts(0)) + " + " + STR$(nu(1))
+                            ts(1) = ts(0) + nu(1)
+                            e(1) = " = " + STR$(ts(1))
+                          CASE 1
+                            p(1) = STR$(ts(0)) + " - " + STR$(nu(1))
+                            ts(1) = ts(0) - nu(1)
+                            e(1) = " = " + STR$(ts(1))
+                          CASE 2
+                            p(1) = STR$(ts(0)) + " * " + STR$(nu(1))
+                            ts(1) = ts(0) * nu(1)
+                            e(1) = " = " + STR$(ts(1))
+                          CASE 3
+                            p(1) = STR$(ts(0)) + " / " + STR$(nu(1))
+                            ts(1) = ts(0) / nu(1)
+                            e(1) = " = " + STR$(ts(1))
+                        END SELECT
+                        FOR i = 1 TO 2
+                          SELECT CASE o(i)
+                            CASE 0
+                              p(i + 1) = STR$(ts(i)) + " + " + STR$(nu(i + 1))
+                              ts(i + 1) = ts(i) + nu(i + 1)
+                              e(i + 1) = " = " + STR$(ts(i + 1))
+                            CASE 1
+                              p(i + 1) = STR$(ts(i)) + " - " + STR$(nu(i + 1))
+                              ts(i + 1) = ts(i) - nu(i + 1)
+                              e(i + 1) = " = " + STR$(ts(i + 1))
+                            CASE 2
+                              p(i + 1) = STR$(ts(i)) + " * " + STR$(nu(i + 1))
+                              ts(i + 1) = ts(i) * nu(i + 1)
+                              e(i + 1) = " = " + STR$(ts(i + 1))
+                            CASE 3
+                              p(i + 1) = STR$(ts(i)) + " / " + STR$(nu(i + 1))
+                              ts(i + 1) = ts(i) / nu(i + 1)
+                              e(i + 1) = " = " + STR$(ts(i + 1))
+                          END SELECT
+                        NEXT i
+                        working = 1
+                        IF ts(3) = 24 THEN
+                          works = 1
+                          FOR i = 0 TO 2
+                            strnum(x) = strnum(x) + p(i + 1) + e(i + 1)
+                          NEXT i
+                          x = x + 1
+                          IF x <> 1 THEN
+                            FOR counter = 0 TO x - 2
+                              IF strnum(x - 1) = strnum(counter) THEN
+                                working = 0
+                              END IF
+                            NEXT counter
+                          END IF
+                          IF working = 1 THEN
+                            line1(linecounter) = p(1) + e(1)
+                            line2(linecounter) = p(2) + e(2)
+                            line3(linecounter) = p(3) + e(3)
+                            linecounter = linecounter + 1
+                          END IF
+                        END IF
+                      ELSEIF paren = 1 THEN
+                        SELECT CASE o(0)
+                          CASE 0
+                            p(1) = STR$(nu(0)) + " + " + STR$(nu(1))
+                            ts(1) = ts(0) + nu(1)
+                            e(1) = " = " + STR$(ts(1))
+                          CASE 1
+                            p(1) = STR$(nu(0)) + " - " + STR$(nu(1))
+                            ts(1) = ts(0) - nu(1)
+                            e(1) = " = " + STR$(ts(1))
+                          CASE 2
+                            p(1) = STR$(nu(0)) + " * " + STR$(nu(1))
+                            ts(1) = ts(0) * nu(1)
+                            e(1) = " = " + STR$(ts(1))
+                          CASE 3
+                            p(1) = STR$(nu(0)) + " / " + STR$(nu(1))
+                            ts(1) = ts(0) / nu(1)
+                            e(1) = " = " + STR$(ts(1))
+                        END SELECT
+                        SELECT CASE o(2)
+                          CASE 0
+                            p(2) = STR$(nu(2)) + " + " + STR$(nu(3))
+                            ts(2) = nu(2) + nu(3)
+                            e(2) = " = " + STR$(ts(2))
+                          CASE 1
+                            p(2) = STR$(nu(2)) + " - " + STR$(nu(3))
+                            ts(2) = nu(2) - nu(3)
+                            e(2) = " = " + STR$(ts(2))
+                          CASE 2
+                            p(2) = STR$(nu(2)) + " * " + STR$(nu(3))
+                            ts(2) = nu(2) * nu(3)
+                            e(2) = " = " + STR$(ts(2))
+                          CASE 3
+                            p(2) = STR$(nu(2)) + " / " + STR$(nu(3))
+                            ts(2) = nu(2) / nu(3)
+                            e(2) = " = " + STR$(ts(2))
+                        END SELECT
+                        SELECT CASE o(1)
+                          CASE 0
+                            p(3) = STR$(ts(1)) + " + " + STR$(ts(2))
+                            ts(3) = ts(1) + ts(2)
+                            e(3) = " = " + STR$(ts(3))
+                          CASE 1
+                            p(3) = STR$(ts(1)) + " - " + STR$(ts(2))
+                            ts(3) = ts(1) - ts(2)
+                            e(3) = " = " + STR$(ts(3))
+                          CASE 2
+                            p(3) = STR$(ts(1)) + " * " + STR$(ts(2))
+                            ts(3) = ts(1) * ts(2)
+                            e(3) = " = " + STR$(ts(3))
+                          CASE 3
+                            p(3) = STR$(ts(1)) + " / " + STR$(ts(2))
+                            IF ts(2) <> 0 THEN ts(3) = nu(1) / ts(2)
+                            e(3) = " = " + STR$(ts(3))
+                        END SELECT
+                        working = 1
+                        IF ts(3) = 24 THEN
+                          works = 1
+                          FOR i = 0 TO 2
+                            strnum(x) = strnum(x) + p(i + 1) + e(i + 1)
+                          NEXT i
+                          x = x + 1
+                          IF x <> 1 THEN
+                            FOR counter = 0 TO x - 2
+                              IF strnum(x - 1) = strnum(counter) THEN
+                                working = 0
+                              END IF
+                            NEXT counter
+                          END IF
+                          IF working = 1 THEN
+                            line1(linecounter) = p(1) + e(1)
+                            line2(linecounter) = p(2) + e(2)
+                            line3(linecounter) = p(3) + e(3)
+                            linecounter = linecounter + 1
+                          END IF
+                        END IF
+                      ELSEIF paren = 2 THEN
+                        SELECT CASE o(0)
+                          CASE 0
+                            p(1) = STR$(ts(0)) + " + " + STR$(nu(1))
+                            ts(1) = ts(0) + nu(1)
+                            e(1) = " = " + STR$(ts(1))
+                          CASE 1
+                            p(1) = STR$(ts(0)) + " - " + STR$(nu(1))
+                            ts(1) = ts(0) - nu(1)
+                            e(1) = " = " + STR$(ts(1))
+                          CASE 2
+                            p(1) = STR$(ts(0)) + " * " + STR$(nu(1))
+                            ts(1) = ts(0) * nu(1)
+                            e(1) = " = " + STR$(ts(1))
+                          CASE 3
+                            p(1) = STR$(ts(0)) + " / " + STR$(nu(1))
+                            ts(1) = ts(0) / nu(1)
+                            e(1) = " = " + STR$(ts(1))
+                        END SELECT
+                        FOR i = 1 TO 2
+                          SELECT CASE o(i)
+                            CASE 0
+                              p(i + 1) = STR$(nu(i + 1)) + " + " + STR$(ts(i))
+                              ts(i + 1) = nu(i + 1) + ts(i)
+                              e(i + 1) = " = " + STR$(ts(i + 1))
+                            CASE 1
+                              p(i + 1) = STR$(nu(i + 1)) + " - " + STR$(ts(i))
+                              ts(i + 1) = nu(i + 1) - ts(i)
+                              e(i + 1) = " = " + STR$(ts(i + 1))
+                            CASE 2
+                              p(i + 1) = STR$(nu(i + 1)) + " * " + STR$(ts(i))
+                              ts(i + 1) = nu(i + 1) * ts(i)
+                              e(i + 1) = " = " + STR$(ts(i + 1))
+                            CASE 3
+                              p(i + 1) = STR$(nu(i + 1)) + " / " + STR$(ts(i))
+                              IF ts(i) <> 0 THEN ts(i + 1) = nu(i + 1) / ts(i)
+                              e(i + 1) = " = " + STR$(ts(i + 1))
+                          END SELECT
+                        NEXT i
+                        working = 1
+                        IF ts(3) = 24 THEN
+                          works = 1
+                          FOR i = 0 TO 2
+                            strnum(x) = strnum(x) + p(i + 1) + e(i + 1)
+                          NEXT i
+                          x = x + 1
+                          IF x <> 1 THEN
+                            FOR counter = 0 TO x - 2
+                              IF strnum(x - 1) = strnum(counter) THEN
+                                working = 0
+                              END IF
+                            NEXT counter
+                          END IF
+                          IF working = 1 THEN
+                            line1(linecounter) = p(1) + e(1)
+                            line2(linecounter) = p(2) + e(2)
+                            line3(linecounter) = p(3) + e(3)
+                            linecounter = linecounter + 1
+                          END IF
+                        END IF
+                      ELSEIF paren = 3 THEN
+                        SELECT CASE o(0)
+                          CASE 0
+                            p(1) = STR$(ts(0)) + " + " + STR$(nu(1))
+                            ts(1) = ts(0) + nu(1)
+                            e(1) = " = " + STR$(ts(1))
+                          CASE 1
+                            p(1) = STR$(ts(0)) + " - " + STR$(nu(1))
+                            ts(1) = ts(0) - nu(1)
+                            e(1) = " = " + STR$(ts(1))
+                          CASE 2
+                            p(1) = STR$(ts(0)) + " * " + STR$(nu(1))
+                            ts(1) = ts(0) * nu(1)
+                            e(1) = " = " + STR$(ts(1))
+                          CASE 3
+                            p(1) = STR$(ts(0)) + " / " + STR$(nu(1))
+                            ts(1) = ts(0) / nu(1)
+                            e(1) = " = " + STR$(ts(1))
+                        END SELECT
+                        SELECT CASE o(1)
+                          CASE 0
+                            p(2) = STR$(ts(1)) + " + " + STR$(nu(2))
+                            ts(2) = ts(1) + nu(2)
+                            e(2) = " = " + STR$(ts(2))
+                          CASE 1
+                            p(2) = STR$(nu(2)) + " - " + STR$(ts(2))
+                            ts(2) = nu(2) - ts(1)
+                            e(2) = " = " + STR$(ts(2))
+                          CASE 2
+                            p(2) = STR$(ts(1)) + " * " + STR$(nu(2))
+                            ts(2) = ts(1) * nu(2)
+                            e(2) = " = " + STR$(ts(2))
+                          CASE 3
+                            p(2) = STR$(nu(2)) + " / " + STR$(ts(1))
+                            IF ts(1) <> 0 THEN ts(2) = nu(2) / ts(1)
+                            e(2) = " = " + STR$(ts(2))
+                        END SELECT
+                        SELECT CASE o(3)
+                          CASE 0
+                            p(3) = STR$(ts(2)) + " + " + STR$(nu(3))
+                            ts(3) = ts(2) + nu(3)
+                            e(3) = " = " + STR$(ts(3))
+                          CASE 1
+                            p(3) = STR$(ts(2)) + " - " + STR$(nu(3))
+                            ts(3) = ts(2) - nu(3)
+                            e(3) = " = " + STR$(ts(3))
+                          CASE 2
+                            p(3) = STR$(ts(2)) + " * " + STR$(nu(3))
+                            ts(3) = ts(2) * nu(3)
+                            e(3) = " = " + STR$(ts(3))
+                          CASE 3
+                            p(3) = STR$(ts(2)) + " / " + STR$(nu(3))
+                            ts(3) = ts(2) / nu(3)
+                            e(3) = " = " + STR$(ts(3))
+                        END SELECT
+                        working = 1
+                        IF ts(3) = 24 THEN
+                          works = 1
+                          FOR i = 0 TO 2
+                            strnum(x) = strnum(x) + p(i + 1) + e(i + 1)
+                          NEXT i
+                          x = x + 1
+                          IF x <> 1 THEN
+                            FOR counter = 0 TO x - 2
+                              IF strnum(x - 1) = strnum(counter) THEN
+                                working = 0
+                              END IF
+                            NEXT counter
+                          END IF
+                          IF working = 1 THEN
+                            line1(linecounter) = p(1) + e(1)
+                            line2(linecounter) = p(2) + e(2)
+                            line3(linecounter) = p(3) + e(3)
+                            linecounter = linecounter + 1
+                          END IF
+                        END IF
+                      END IF
+                    NEXT paren
+                  NEXT o3
+                NEXT o2
+              NEXT o1
+            END IF
+          NEXT n4
+        END IF
+      NEXT n3
+    END IF
+  NEXT n2
+NEXT n1
+CardWork = works
+END FUNCTION
+
+SUB clrArray
+DIM i AS INTEGER
+ON LOCAL ERROR GOTO errfixlsc
+i = 0
+WHILE line1(i) <> ""
+  line1(i) = ""
+  line2(i) = ""
+  line3(i) = ""
+  i = i + 1
+WEND
+EXIT SUB
+errfixlsc:
+EXIT SUB
+END SUB
+
+FUNCTION Ordinal$ (num AS INTEGER)
+  SELECT CASE num
+    CASE 1
+      Ordinal$ = "First"
+    CASE 2
+      Ordinal$ = "Second"
+    CASE 3
+      Ordinal$ = "Third"
+    CASE 4
+      Ordinal$ = "Fourth"
+  END SELECT
+END FUNCTION
+
