@@ -1,0 +1,22 @@
+\beamer@endinputifotherversion {3.10pt}
+\beamer@sectionintoc {2}{Getting Started}{6}{0}{1}
+\beamer@subsectionintoc {2}{1}{Installing \LaTeX }{6}{0}{1}
+\beamer@subsectionintoc {2}{2}{What is \LaTeX ?}{9}{0}{1}
+\beamer@subsectionintoc {2}{3}{Getting Help}{15}{0}{1}
+\beamer@subsectionintoc {2}{4}{Basic Setup}{16}{0}{1}
+\beamer@sectionintoc {3}{Basic Typesetting}{19}{0}{2}
+\beamer@subsectionintoc {3}{1}{Good Practices}{19}{0}{2}
+\beamer@subsectionintoc {3}{2}{Optional (but useful) packages}{21}{0}{2}
+\beamer@subsectionintoc {3}{3}{\LaTeX {} and Math}{23}{0}{2}
+\beamer@subsectionintoc {3}{4}{Basic math typsetting}{23}{0}{2}
+\beamer@subsubsectionintoc {3}{4}{1}{Ways to get into math mode}{23}{0}{2}
+\beamer@subsubsectionintoc {3}{4}{2}{A few common math things}{24}{0}{2}
+\beamer@subsubsectionintoc {3}{4}{3}{A few not so common math things}{31}{0}{2}
+\beamer@sectionintoc {4}{Miscellaneous}{32}{0}{3}
+\beamer@subsectionintoc {4}{1}{Things to watch out for}{32}{0}{3}
+\beamer@subsectionintoc {4}{2}{Other environments}{33}{0}{3}
+\beamer@sectionintoc {5}{Graphics}{38}{0}{4}
+\beamer@subsectionintoc {5}{1}{Basics}{38}{0}{4}
+\beamer@subsectionintoc {5}{2}{Intermediate}{39}{0}{4}
+\beamer@subsectionintoc {5}{3}{Advanced}{40}{0}{4}
+\beamer@subsectionintoc {5}{4}{GUI}{41}{0}{4}
