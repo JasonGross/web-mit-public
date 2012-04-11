@@ -1,0 +1,36 @@
+BEGIN:VCALENDAR
+PRODID:-//MIT//Events Calendar 2.0 NONSGML//EN
+VERSION:2.0
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VTIMEZONE
+TZID:GMT
+BEGIN:STANDARD
+DTSTART:20120415T000000Z
+TZOFFSETFROM:-0000
+TZOFFSETTO:-0000
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+TRANSP:OPAQUE
+X-MICROSOFT-CDO-IMPORTANCE:1
+CLASS:PUBLIC
+SEQUENCE:0
+UID:20120415T180000-14975652@events.mit.edu
+DTSTART;TZID=GMT:20120415T180000
+DTEND;TZID=GMT:20120415T190000
+DTSTAMP;VALUE=DATE:20120411
+SUMMARY:Bang on a Can All-Stars Bassist Robert Black
+DESCRIPTION:15 | Sun | Bang on a Can All-Star bassist Robert Black and th
+ e Hartt Bass Band. performing "Bang on a Bass."  David Lang\, I Feel Pret
+ ty; Lang\, Bristle\, (w/the Hartt Bass Band); Michael Gordon\, Paint It B
+ lack; Evan Ziporyn\, Hval; Julia Wolfe\, Stronghold (w/ the Hartt Bass Ba
+ nd). 2pm\, Killian Hall.  Free.\n\nContact Information: \nClarise Snyder\
+ , mta-request@mit.edu\, http://web.mit.edu/mta\n\nSponsor(s): Music and T
+ heater Arts\n\n
+LOCATION:14W-111 Killian Hall
+URL:http://events.mit.edu/event.html?id=14975652
+END:VEVENT
+END:VCALENDAR
+
+
