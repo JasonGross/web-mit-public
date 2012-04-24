@@ -1,0 +1,538 @@
+Rachel: hi jason again
+ 
+me: hi
+ 
+Rachel: thanks for your program! it helped a lot
+ 
+me: You're welcome
+ 
+Rachel: do you have a little bit of time to help me with math?
+  
+test tomorrow, i dont get it
+ 
+me: Maybe a few minutes, but not much time
+ 
+Rachel: yay thianks
+ 
+me: What are you having trouble with?
+ 
+Rachel: solving trig functions algebraically
+  
+with no calculator
+ 
+me: you mean like http://www.sosmath.com/trig/Trig5/trig5/trig5.html ?
+ 
+Rachel: i don't think so...
+  
+like 2sin2x= rad3
+ 
+me: If you know the your 45-45-90 and 30-60-90 triangles, you can solve sin x = \sqrt{3} / 2
+ 
+Rachel: what's the 45 45 90 one again?
+ 
+me: it's an isosceles right triangle. just use Pythagorean theorem
+ 
+Rachel: rad 2, rad 2, 2?
+ 
+me: sure
+ 
+usually expressed as x:x:x\sqrt{2}
+ 
+Rachel: x/sqrt2?
+ 
+me: why?
+  
+*what?
+ 
+Rachel: no
+ 
+that's what i was asking
+ 
+me: no, \sqrt is the square-root command in LaTeX
+ 
+Rachel: i know
+  
+why is the third side x/sqrt2?
+ 
+me: x\sqrt{2} = x * \sqrt{2}
+ 
+Rachel: ohh ok
+  
+ohh i see
+  
+and then the other triangle is x, xrad3, 2x?
+ 
+me: yes
+ 
+Rachel: ok, with the example u gave
+  
+sinx = cos30
+  
+?
+ 
+me: so what's x, then?
+ 
+Rachel: rad3/2….
+ 
+me: no, that's sin x
+ 
+Rachel: how do i find it then?
+ 
+me: draw the triangle, find an angle in the triangle whose sine is \sqrt{3}/2
+ 
+Rachel: what do u mean?
+ 
+me: how did you get sin x = cos 30?
+ 
+Rachel: ohh
+  
+sin 60
+ 
+me: ok, so now solve 2sin2x= rad3
+ 
+Rachel: why 2x?
+  
+why is it 2sin2x?
+ 
+me: because that's what you asked me to start off with :-P
+ 
+Rachel: oh ok
+ 
+i'm still confused...
+  
+idk how
+ 
+me: can you solve 2sin y = rad 2?
+  
+sorry,
+2sin y = rad 3
+ 
+Rachel: sin60…but i don't think that's the right answer
+ 
+me: so what's y?
+  
+or are you saying that y = sin 60?
+ 
+Rachel: no
+  
+i'm not saying that
+  
+but idk how to find what y is
+ 
+me: can you tell me what sin y is?
+ 
+Rachel: rad3/2
+ 
+rad(3)/2
+ 
+me: can you give me a number such that the sine of that number is rad3/2?
+ 
+Rachel: 6-
+  
+60
+ 
+me: ok, so y = 60 is one solution to the equation 2sin y = rad3
+ 
+Rachel: why?
+ 
+if siny = sin 60, does that mean y=60?
+ 
+me: (another solution is 60 + 360, or 60 + 360 * 2, or 60 - 360)
+  
+It means that y = 60 is one solution.
+  
+(the full solution set is y = 60 + 360 k for all integers k)
+ 
+Rachel: right
+ 
+me: so give me a solution to 2 sin(2x) = \sqrt{3} / 2
+  
+er 2 sin(2x) = \sqrt{3}
+ 
+Rachel: is x=30 one answer?
+  
+x= 30 + 360k?
+ 
+me: x = 30 is one answer
+ 
+you missed some answers in your general solution, though
+  
+(why did you divide only the 60 by 2, and not all of y?)
+ 
+Rachel: huh?
+  
+would it be x = 30 + 180 k?
+ 
+me: how'd you get 30?
+ 
+Rachel: yeah divided by 2
+ 
+except it says solve in terms of pi, so would it be x= (π/6) + 2πk?
+ 
+me: which equation were you solving?
+ 
+Rachel: 2sin2x= √3
+ 
+me: why 2πk?
+ 
+Rachel: period of sin?
+ 
+me: solve 2sin y = rad3, in radians
+ 
+Rachel: or would it only be πk because divided by 2
+ 
+me: figure it out :-P
+ 
+Rachel: y=π/3 + somethingπk
+  
+idk how to figure it out
+ 
+me: what can you add to y which leaves sin y unchanged?
+ 
+Rachel: 0?
+ 
+me: (what's the smallest positive nonzero number?)
+ 
+Rachel: oh
+  
+:p
+  
+.00000000000000000000001
+  
+jk
+  
+idk
+ 
+me: Nope, that changes sin y
+ 
+it changes it by about .00000000000000000000001
+ 
+Rachel: 45?
+  
+lol
+ 
+me: 45 radians?
+ 
+Rachel: π?
+ 
+me: go get graph paper, and plot sin x from x = 0 to x = 4 π. Then draw the point corresponding to (π/3, sin(π/3)), and then think about my question again
+ 
+Rachel: oh!
+ 
+me: and make your graph accurate
+ 
+Rachel: it's pi
+ 
+me: don't answer me now, go graph it
+ 
+Rachel: i graphed it in my head
+ 
+me: graph it on paper, carefully
+ 
+and label 0, π/3, 2π/3, π, 4π/3, 5π/3, 2π, 7π/3, 8π/3, 3π, 10π/3, 11π/3, 4π
+ 
+Rachel: i dont getthis part
+  
+Then draw the point corresponding to (π/3, sin(π/3))
+ 
+me: draw the point (0, 0)
+ 
+Rachel: ok
+ 
+me: draw the point (π/2, 1)
+ 
+Rachel: didnt draw π/2...
+ 
+me: guess
+ 
+it's right in the middle of 0 and π
+  
+:-P
+ 
+Rachel: ok
+  
+lol
+  
+then what
+ 
+me: now draw the point (π, sin(π))
+ 
+then draw the point (π/3, sin(π/3))
+ 
+Rachel: sinπ?
+ 
+me: what about it?
+ 
+Rachel: how do i draw π, sinπ?
+ 
+me: what's sin(π)?
+ 
+Rachel: 0
+  
+wait no
+ 
+me: yes
+ 
+Rachel: yes
+ 
+me: can you draw (π, sin(π)) now?
+ 
+Rachel: yes
+ 
+me: why couldn't you before?
+ 
+Rachel: i didnt realize/connect that sinπ=0
+ 
+me: what did you think sinπ was?
+ 
+Rachel: idk
+ 
+me: well figure out what you thought it was. Try to recreate what your thought processes were when I told you "plot (π, sin(π))" and you said "I don't know how" or "I don't know where that is"
+ 
+Rachel: sin(π/3) = √3)/2?
+  
+i just had no clue before
+ 
+wait why then draw the point (π/3, sin(π/3))
+ 
+me: That's not the question I asked you. I want to know what you were thinking when I told you draw (π, sin(π)).
+  
+(we'll get to (π/3, sin(π/3)) soon)
+ 
+Rachel: i wasn't thinking anything
+  
+i had no clue what it was
+  
+i wasn't thinking it was something else
+ 
+me: That's the wrong way to approach math. Have you ever done stream-of-consciousness writing? (/do you know what it is?)
+ 
+Rachel: yes, we did that today
+ 
+but it's not on the test
+  
+no
+  
+idk
+  
+english
+  
+we did it in english today
+ 
+me: Yes, that's what I'm talking about.
+ 
+Rachel: ok, well i understand now that it''s not good to think that way, but i need to be able to think tomorrow on my test, so please dont waste both of our time trying to figure out why i wasnt thinking
+ 
+me: I'm not trying to figure that out. I'm trying to teach you to react to math by thinking (in a useful way), instinctually.
+ 
+Rachel: ok, good idea, just not right now please
+ 
+me: Every time you ask me a (new) math question in the future, I'm going to have you do that for a minute or two on every concept related to that question. (I only want sentences related to the concepts, so keep going with stream-of-consciousness until you've actually thought about the concept for 2 minutes and have things to say about it. I won't care if they're things like "to plot things, I have to draw lines on paper.")
+ 
+Rachel: ok
+ 
+me: anyway, I told you to draw (π/3, sin(π/3)) for the following reason
+  
+did you notice that all the points I've mentioned are on the sine curve?
+ 
+Rachel: yes, especially considering you only mentioned 3 points
+ 
+me: and, btw, go draw (π/3, sin(π/3)))
+ 
+Rachel: well 4
+  
+but idk how to draw that
+ 
+sinπ/3 = √3)/2
+  
+which isnt on my y axis
+ 
+me: but it is on your sine curve
+ 
+Rachel: therefore, since i have no brain, i cant do it
+  
+lol
+ 
+me: so it's in the same place on the y-axis that the sine curve is at that point
+ 
+Rachel: alright
+  
+did it
+ 
+me: now find the next point on the sine curve with the same y-value as that point
+  
+and tell me what that point is
+ 
+Rachel: 2π/3, whatever the y value of the other point was
+ 
+sinπ/3
+ 
+me: ok, and what's the one after that?
+ 
+Rachel: √3/2
+ 
+me: yes, sinπ/3 = √3/2
+What's the next point?
+ 
+Rachel: 7π/3
+ 
+me: and the next one?
+ 
+Rachel: 3π
+ 
+me: you drew your picture wrong. sin 3π = 0
+ 
+Rachel: no i drew my picture correctly
+  
+i read it wrong
+ 
+8π
+  
+/3
+ 
+me: ok. so how far to the right do you have to go to be guaranteed of finding another point like this?
+  
+(how far do you have to go to be guaranteed of finding a point at exactly the spot you pick?)
+ 
+Rachel: 5π/3
+  
+k
+  
+5πk/3
+ 
+me: at exactly the spot you pick?
+ 
+Rachel: what?
+  
+0?
+ 
+me: what if you go 5π/3 to the right of π/3?
+ 
+Rachel: 6π/3
+  
+=
+  
+2π
+ 
+me: ok, so what are all the solutions to sin(x) = \sqrt{3} / 2?
+ 
+Rachel: it was sin2x
+  
+= √3/2
+ 
+me: I know. Solve this one first.
+ 
+Rachel: oh
+  
+ok
+  
+um
+ 
+x= π/3 + 2πk
+ 
+me: anything else?
+ 
+Rachel: k= all integers?
+ 
+me: what about 2π/3?
+ 
+Rachel: what about it?
+ 
+me: is it a valid solution?
+ 
+Rachel: um
+ 
+yes
+ 
+me: is it of the form π/3 + 2πk?
+ 
+Rachel: ohhh right! i think ir remember that now!
+  
+2 equations!
+ 
+me: ... you shouldn't need to remember it :-P
+ 
+Rachel: x = 2π/3 + 2πk or x = π/3 + 2πk
+ 
+me: ok. so now what are the solutions to sin(2x)
+= √3/2 ?
+ 
+Rachel: x = π/6 + πk or x = π/3 + πk
+ 
+me: good
+ 
+Rachel: yay! i understand that now!
+ 
+me: good
+ 
+Rachel: but how do i do that for tan?
+  
+tan confuses me
+ 
+me: why does it confuse you?
+ 
+Rachel: actually i think i can do it
+  
+um
+  
+next sub-topic
+  
+well question about sub-topic
+  
+what precisely does it mean "modeling with trig functions"?
+ 
+me: If you move a laser pointer back and forth for Toby to look at, and then plot the position of that as a function of time, it'll look almost like a sine curve. Noticing that it looks almost like a sine curve, and figuring out what sine curve it looks most similar to (what a, k, c, d are for a sin(k x + c) + d), that's and example of "modeling with trig functions"
+ 
+Rachel: ohh ok thanks
+  
+next
+  
+affect of A, B, C, and D on circle and trig function
+ 
+i know how it affects trig funvctions, but not sure about the circle
+ 
+me: I'm not sure what A, B, C, and D you're talking about
+ 
+Rachel: like x=asinB(x-c) +d
+ 
+me: x = a sin( B( x - c ) ) + d ?
+ 
+that's not a circle, nor a graph
+ 
+Rachel: that's the parametric equation, right?
+ 
+me: no. a parametric equation is like x = f(t), not x = f(x)
+ 
+Rachel: right
+  
+um
+ 
+me: and you also need a y = g(t)
+ 
+Rachel: it's the equation of the trig function, no?
+ 
+me: I don't know what you're talking about
+ 
+Rachel: are you familiar with the equation?
+ 
+me: with x on both sides, no
+ 
+Rachel: oh
+  
+ok didnt mean that then
+ 
+me: have you looked at that section in your textbook?
+ 
+Rachel: meant y= asinb(x-c) +d
+  
+and not yet, i figured i wanted to ask you while you were offering the help
+ 
+me: I don't know what you're asking me to do. If you have a specific question, ask. Otherwise, go look at your textbook/notes and let me get back to work
+ 
+Rachel: ok, will u still be here though for me to ask about specific questions?
+ 
+me: maybe
+ 
+Rachel: alright, well thanks so much for your help!
+  
+wait
