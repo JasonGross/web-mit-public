@@ -1,0 +1,875 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>exercises</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<h1 class="libtitle">Library exercises</h1>
+
+<div class="code">
+</div>
+
+<div class="doc">
+<a name="lab1"></a><h1 class="section">Preliminaries</h1>
+ Instructor's Name: Jason
+    Username: espuser
+    Password: !Splash2014
+
+<div class="paragraph"> </div>
+
+    How to install Coq: Open up a terminal, and type
+
+<div class="paragraph"> </div>
+
+<pre>
+    tellme root
+    sudo apt-get install coq coqide emacs proofgeneral-coq
+</pre>
+
+<div class="paragraph"> </div>
+
+    At home, you can download it from https://coq.inria.fr/.
+
+<div class="paragraph"> </div>
+
+    You can download this file from:
+    http://web.mit.edu/jgross/Public/2014-splash/equality/exercises.v
+ 
+<div class="paragraph"> </div>
+
+<a name="lab2"></a><h1 class="section">Warmup - Getting used to Coq</h1>
+ Let's see how to prove some things.  You may find http://andrej.com/coq/cheatsheet.pdf helpful.
+
+<div class="paragraph"> </div>
+
+    Here's a partial list:
+
+<div class="paragraph"> </div>
+
+<ul class="doclist">
+<li> <span class="inlinecode"><span class="id" type="tactic">simpl</span></span> simplifies things
+
+</li>
+<li> <span class="inlinecode"><span class="id" type="tactic">compute</span></span> shows you the normal form
+
+</li>
+<li> <span class="inlinecode"><span class="id" type="tactic">intro</span></span> <span class="inlinecode"><a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a></span>
+
+</li>
+<li> <span class="inlinecode"><span class="id" type="tactic">destruct</span></span> <span class="inlinecode"><a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a></span>, <span class="inlinecode"><span class="id" type="tactic">case</span></span> <span class="inlinecode"><a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a></span>, <span class="inlinecode"><span class="id" type="tactic">induction</span></span> <span class="inlinecode"><a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a></span> do case analysis on <span class="inlinecode"><a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a></span>
+
+</li>
+<li> <span class="inlinecode"><span class="id" type="tactic">reflexivity</span></span> proves a goal of the form <span class="inlinecode"><a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a></span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a></span>
+
+</li>
+<li> <span class="inlinecode"><span class="id" type="tactic">apply</span></span> <span class="inlinecode"><span class="id" type="var">H</span></span> makes use of a hypothesis <span class="inlinecode"><span class="id" type="var">H</span></span>
+
+</li>
+<li> <span class="inlinecode"><span class="id" type="tactic">rewrite</span></span> <span class="inlinecode"><span class="id" type="var">H</span></span> replaces <span class="inlinecode"><a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a></span> with <span class="inlinecode"><a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a></span> when <span class="inlinecode"><span class="id" type="var">H</span></span> is of type <span class="inlinecode"><a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a></span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a></span>
+
+</li>
+<li> <span class="inlinecode"><span class="id" type="tactic">rewrite</span></span> <span class="inlinecode">&lt;-</span> <span class="inlinecode"><span class="id" type="var">H</span></span> replaces <span class="inlinecode"><a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a></span> with <span class="inlinecode"><a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a></span> when <span class="inlinecode"><span class="id" type="var">H</span></span> is of type <span class="inlinecode"><a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a></span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a></span>
+
+</li>
+<li> <span class="inlinecode"><span class="id" type="tactic">split</span></span> is used to prove <span class="inlinecode"><span class="id" type="var">_</span></span> <span class="inlinecode">∧</span> <span class="inlinecode"><span class="id" type="var">_</span></span> (conjunction)
+
+</li>
+<li> <span class="inlinecode"><span class="id" type="tactic">left</span></span> and <span class="inlinecode"><span class="id" type="tactic">right</span></span> are used to prove <span class="inlinecode"><span class="id" type="var">_</span></span> <span class="inlinecode">∨</span> <span class="inlinecode"><span class="id" type="var">_</span></span> (disjunction) 
+</li>
+</ul>
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Section</span> <a name="WarmUp"><span class="id" type="section">WarmUp</span></a>.<br/>
+</div>
+
+<div class="doc">
+We use a cheating axiom as a placeholder.  Your code should not
+      end with any <span class="inlinecode"><a class="idref" href="exercises.html#admit"><span class="id" type="axiom">admit</span></a></span>s.  We use curly braces to not have to give
+      <span class="inlinecode"><a class="idref" href="exercises.html#T"><span class="id" type="variable">T</span></a></span> explicitly. 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" type="keyword">Axiom</span> <a name="admit"><span class="id" type="axiom">admit</span></a> : <span class="id" type="keyword">∀</span> {<span class="id" type="var">T</span>}, <a class="idref" href="exercises.html#T"><span class="id" type="variable">T</span></a>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Lemma</span> <a name="id'"><span class="id" type="lemma">id'</span></a> : <span class="id" type="keyword">∀</span> <span class="id" type="var">A</span>, <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a> → <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Print</span> <span class="id" type="var">id'</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Definition</span> <a name="id"><span class="id" type="definition">id</span></a> : <span class="id" type="keyword">∀</span> <span class="id" type="var">A</span>, <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a> → <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;:= <a class="idref" href="exercises.html#admit"><span class="id" type="axiom">admit</span></a>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Lemma</span> <a name="compose'"><span class="id" type="lemma">compose'</span></a> : <span class="id" type="keyword">∀</span> <span class="id" type="var">A</span> <span class="id" type="var">B</span> <span class="id" type="var">C</span>, (<a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a> → <a class="idref" href="exercises.html#B"><span class="id" type="variable">B</span></a>) → (<a class="idref" href="exercises.html#B"><span class="id" type="variable">B</span></a> → <a class="idref" href="exercises.html#C"><span class="id" type="variable">C</span></a>) → (<a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a> → <a class="idref" href="exercises.html#C"><span class="id" type="variable">C</span></a>).<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Print</span> <span class="id" type="var">compose'</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Definition</span> <a name="compose"><span class="id" type="definition">compose</span></a> {<span class="id" type="var">A</span> <span class="id" type="var">B</span> <span class="id" type="var">C</span>} (<span class="id" type="var">g</span> : <a class="idref" href="exercises.html#B"><span class="id" type="variable">B</span></a> → <a class="idref" href="exercises.html#C"><span class="id" type="variable">C</span></a>) (<span class="id" type="var">f</span> : <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a> → <a class="idref" href="exercises.html#B"><span class="id" type="variable">B</span></a>) : <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a> → <a class="idref" href="exercises.html#C"><span class="id" type="variable">C</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;:= <a class="idref" href="exercises.html#admit"><span class="id" type="axiom">admit</span></a>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Goal</span> 1 <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Peano.html#:nat_scope:x_'+'_x"><span class="id" type="notation">+</span></a> 1 <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Logic.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> 2.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Lemma</span> <a name="and_ex"><span class="id" type="lemma">and_ex</span></a> : 1 <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Logic.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> 1 <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Logic.html#:type_scope:x_'/\'_x"><span class="id" type="notation">∧</span></a> 2 <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Logic.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> 2.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Lemma</span> <a name="or_ex"><span class="id" type="lemma">or_ex</span></a> : 1 <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Logic.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> 1 <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Logic.html#:type_scope:x_'\/'_x"><span class="id" type="notation">∨</span></a> 1 <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Logic.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> 2.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Lemma</span> <a name="or_l"><span class="id" type="lemma">or_l</span></a> : <span class="id" type="keyword">∀</span> <span class="id" type="var">A</span> <span class="id" type="var">B</span> : <span class="id" type="keyword">Prop</span>, <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a> → <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Logic.html#:type_scope:x_'\/'_x"><span class="id" type="notation">∨</span></a> <a class="idref" href="exercises.html#B"><span class="id" type="variable">B</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Lemma</span> <a name="or_r"><span class="id" type="lemma">or_r</span></a> : <span class="id" type="keyword">∀</span> <span class="id" type="var">A</span> <span class="id" type="var">B</span> : <span class="id" type="keyword">Prop</span>, <a class="idref" href="exercises.html#B"><span class="id" type="variable">B</span></a> → <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Logic.html#:type_scope:x_'\/'_x"><span class="id" type="notation">∨</span></a> <a class="idref" href="exercises.html#B"><span class="id" type="variable">B</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <a class="idref" href="exercises.html#WarmUp"><span class="id" type="section">WarmUp</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We begin by defining equality: 
+</div>
+<div class="code">
+<span class="id" type="keyword">Inductive</span> <a name="eq"><span class="id" type="inductive">eq</span></a> {<span class="id" type="var">A</span> : <span class="id" type="keyword">Type</span>} (<span class="id" type="var">x</span> : <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a>) : <span class="id" type="var">A</span> → <span class="id" type="keyword">Type</span><br/>
+&nbsp;&nbsp;:= <a name="refl"><span class="id" type="constructor">refl</span></a> : <span class="id" type="var">x</span> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <span class="id" type="var">x</span> <span class="id" type="keyword">where</span> <a name=":type_scope:x_'='_x"><span class="id" type="notation">"</span></a>x = y" := (@<a class="idref" href="exercises.html#eq"><span class="id" type="inductive">eq</span></a> <span class="id" type="var">_</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>) : <span class="id" type="var">type_scope</span>.<br/>
+<span class="id" type="var">Arguments</span> <a class="idref" href="exercises.html#refl"><span class="id" type="constructor">refl</span></a> {<span class="id" type="var">A</span>} <span class="id" type="var">x</span>, {<span class="id" type="var">A</span> <span class="id" type="var">x</span>}.<br/>
+<span class="id" type="keyword">Notation</span> <a name=":type_scope:x_'<>'_x"><span class="id" type="notation">"</span></a>x &lt;&gt; y" := (<span class="id" type="var">x</span> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <span class="id" type="var">y</span> → <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Logic.html#False"><span class="id" type="inductive">False</span></a>) : <span class="id" type="var">type_scope</span>.<br/>
+</div>
+
+<div class="doc">
+This says the following:
+
+<div class="paragraph"> </div>
+
+<ul class="doclist">
+<li> To ask the question, "is <span class="inlinecode"><a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a></span> equal to <span class="inlinecode"><a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a></span>?", <span class="inlinecode"><a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a></span> and <span class="inlinecode"><a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a></span> must
+      both have the same type <span class="inlinecode"><a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a></span>.
+
+<div class="paragraph"> </div>
+
+
+</li>
+<li> The only way to construct a proof of equality is by reflexivity,
+      which proves, for all <span class="inlinecode"><a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a></span>, that <span class="inlinecode"><a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a></span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a></span>.
+
+<div class="paragraph"> </div>
+
+
+</li>
+<li> The way to make use of an equality <span class="inlinecode"><a class="idref" href="exercises.html#e"><span class="id" type="variable">e</span></a></span> <span class="inlinecode">:</span> <span class="inlinecode"><a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a></span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a></span> is to replace <span class="inlinecode"><a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a></span>
+      with <span class="inlinecode"><a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a></span> and <span class="inlinecode"><a class="idref" href="exercises.html#e"><span class="id" type="variable">e</span></a></span> with <span class="inlinecode"><a class="idref" href="exercises.html#refl"><span class="id" type="constructor">refl</span></a></span>.  This is formalized in <span class="inlinecode"><a class="idref" href="exercises.html#eq_rect"><span class="id" type="definition">eq_rect</span></a></span>:
+      
+</li>
+</ul>
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Check</span> <a class="idref" href="exercises.html#eq_rect"><span class="id" type="definition">eq_rect</span></a>.<br/>
+</div>
+
+<div class="doc">
+<pre>
+ eq_rect
+     : forall (A : Type) (x : A) (P : forall a : A, x = a -&gt; Type),
+       P x refl -&gt; forall (y : A) (e : x = y), P y e
+</pre>
+
+<div class="paragraph"> </div>
+
+     This says that if you are trying to prove <span class="inlinecode"><span class="id" type="var">P</span></span> <span class="inlinecode"><a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a></span> <span class="inlinecode"><a class="idref" href="exercises.html#e"><span class="id" type="variable">e</span></a></span> for any <span class="inlinecode"><a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a></span> <span class="inlinecode">:</span> <span class="inlinecode"><a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a></span>
+     and <span class="inlinecode"><a class="idref" href="exercises.html#e"><span class="id" type="variable">e</span></a></span> <span class="inlinecode">:</span> <span class="inlinecode"><a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a></span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a></span>, it sufficies to prove <span class="inlinecode"><span class="id" type="var">P</span></span> <span class="inlinecode"><a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a></span> <span class="inlinecode"><a class="idref" href="exercises.html#refl"><span class="id" type="constructor">refl</span></a></span>, i.e., it
+     sufficies to replace <span class="inlinecode"><a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a></span> with <span class="inlinecode"><a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a></span> and <span class="inlinecode"><a class="idref" href="exercises.html#e"><span class="id" type="variable">e</span></a></span> with <span class="inlinecode"><a class="idref" href="exercises.html#refl"><span class="id" type="constructor">refl</span></a></span> and prove
+     the resulting statement.
+
+<div class="paragraph"> </div>
+
+     Using the tactic <span class="inlinecode"><span class="id" type="tactic">destruct</span></span> <span class="inlinecode"><a class="idref" href="exercises.html#e"><span class="id" type="variable">e</span></a></span> or <span class="inlinecode"><span class="id" type="tactic">induction</span></span> <span class="inlinecode"><a class="idref" href="exercises.html#e"><span class="id" type="variable">e</span></a></span> will perform this
+     step in a proof.
+
+<div class="paragraph"> </div>
+
+     Furthermore, there is a computation rule, which says that when
+     <span class="inlinecode"><a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a></span> is already <span class="inlinecode"><a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a></span> and <span class="inlinecode"><a class="idref" href="exercises.html#e"><span class="id" type="variable">e</span></a></span> is already <span class="inlinecode"><a class="idref" href="exercises.html#refl"><span class="id" type="constructor">refl</span></a></span>, the <span class="inlinecode"><a class="idref" href="exercises.html#eq_rect"><span class="id" type="definition">eq_rect</span></a></span>
+     disappears from your proof, and the resulting term of type <span class="inlinecode"><span class="id" type="var">P</span></span> <span class="inlinecode"><a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a></span>
+     <span class="inlinecode"><a class="idref" href="exercises.html#e"><span class="id" type="variable">e</span></a></span> *is* the same as the term of type <span class="inlinecode"><span class="id" type="var">P</span></span> <span class="inlinecode"><a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a></span> <span class="inlinecode"><a class="idref" href="exercises.html#refl"><span class="id" type="constructor">refl</span></a></span>.  
+<div class="paragraph"> </div>
+
+ Let's see that this obeys our intuitions. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Section</span> <a name="WarmUpEq"><span class="id" type="section">WarmUpEq</span></a>.<br/>
+</div>
+
+<div class="doc">
+You'll want to use <span class="inlinecode"><span class="id" type="tactic">case</span></span> or <span class="inlinecode"><span class="id" type="tactic">destruct</span></span> here, to do case
+      analysis on the "proof of False".  (Hint: There are no proofs of
+      <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Logic.html#False"><span class="id" type="inductive">False</span></a></span>.  So if you have one, you can do trivial case analysis,
+      and there are no cases.) 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" type="keyword">Lemma</span> <a name="absurd"><span class="id" type="lemma">absurd</span></a> : <span class="id" type="keyword">∀</span> <span class="id" type="var">A</span>, <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Logic.html#False"><span class="id" type="inductive">False</span></a> → <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Lemma</span> <a name="all_absurd'"><span class="id" type="lemma">all_absurd'</span></a> : (<span class="id" type="keyword">∀</span> <span class="id" type="var">B</span>, <a class="idref" href="exercises.html#B"><span class="id" type="variable">B</span></a>) → <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Logic.html#False"><span class="id" type="inductive">False</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Lemma</span> <a name="all_absurd"><span class="id" type="lemma">all_absurd</span></a> : (<span class="id" type="keyword">∀</span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>, <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a> → <a class="idref" href="exercises.html#B"><span class="id" type="variable">B</span></a>) → <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Logic.html#False"><span class="id" type="inductive">False</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Lemma</span> <a name="all_1p1_eq_2"><span class="id" type="lemma">all_1p1_eq_2</span></a> <span class="id" type="var">x</span> (<span class="id" type="var">H</span> : 1 <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a>) : <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Peano.html#:nat_scope:x_'+'_x"><span class="id" type="notation">+</span></a> <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> 2.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Lemma</span> <a name="eq_x_true_any"><span class="id" type="lemma">eq_x_true_any</span></a> <span class="id" type="var">A</span> <span class="id" type="var">B</span> (<span class="id" type="var">x</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#bool"><span class="id" type="inductive">bool</span></a>) (<span class="id" type="var">H</span> : <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#true"><span class="id" type="constructor">true</span></a>)<br/>
+&nbsp;&nbsp;: <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a> → <span class="id" type="keyword">if</span> <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a> <span class="id" type="keyword">then</span> <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a> <span class="id" type="keyword">else</span> <a class="idref" href="exercises.html#B"><span class="id" type="variable">B</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Lemma</span> <a name="eq_false_x_any"><span class="id" type="lemma">eq_false_x_any</span></a> <span class="id" type="var">A</span> <span class="id" type="var">B</span> (<span class="id" type="var">x</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#bool"><span class="id" type="inductive">bool</span></a>) (<span class="id" type="var">H</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#false"><span class="id" type="constructor">false</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a>)<br/>
+&nbsp;&nbsp;: (<span class="id" type="keyword">if</span> <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a> <span class="id" type="keyword">then</span> <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a> <span class="id" type="keyword">else</span> <a class="idref" href="exercises.html#B"><span class="id" type="variable">B</span></a>) → <a class="idref" href="exercises.html#B"><span class="id" type="variable">B</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Lemma</span> <a name="eq_false_true_any'"><span class="id" type="lemma">eq_false_true_any'</span></a> (<span class="id" type="var">H</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#false"><span class="id" type="constructor">false</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#true"><span class="id" type="constructor">true</span></a>)<br/>
+&nbsp;&nbsp;: <span class="id" type="keyword">∀</span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>, <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a> → <a class="idref" href="exercises.html#B"><span class="id" type="variable">B</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Lemma</span> <a name="neq_false_true"><span class="id" type="lemma">neq_false_true</span></a> : <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#false"><span class="id" type="constructor">false</span></a> <a class="idref" href="exercises.html#:type_scope:x_'<>'_x"><span class="id" type="notation">≠</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#true"><span class="id" type="constructor">true</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Defined</span>.<br/>
+<span class="id" type="keyword">End</span> <a class="idref" href="exercises.html#WarmUpEq"><span class="id" type="section">WarmUpEq</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Let's prove some simple lemmas. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <a name="sym"><span class="id" type="definition">sym</span></a> {<span class="id" type="var">A</span>} {<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a>} (<span class="id" type="var">e</span> : <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a>) : <a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+<span class="id" type="keyword">Print</span> <span class="id" type="var">sym</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We make a notation, so that <span class="inlinecode"><a class="idref" href="exercises.html#sym"><span class="id" type="definition">sym</span></a></span> <span class="inlinecode"><a class="idref" href="exercises.html#e"><span class="id" type="variable">e</span></a></span> can be written <span class="inlinecode"><a class="idref" href="exercises.html#e"><span class="id" type="variable">e</span></a>^</span> or <span class="inlinecode"><span class="id" type="var">e⁻¹</span></span>.
+    Switch the order of these if you want it to display as <span class="inlinecode"><a class="idref" href="exercises.html#e"><span class="id" type="variable">e</span></a>^</span>. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Notation</span> <a name="::x_'^'"><span class="id" type="notation">"</span></a>e ^" := (<a class="idref" href="exercises.html#sym"><span class="id" type="definition">sym</span></a> <span class="id" type="var">e</span>) (<span class="id" type="tactic">at</span> <span class="id" type="keyword">level</span> 10, <span class="id" type="var">format</span> "e '^'").<br/>
+<span class="id" type="keyword">Notation</span> <a name="::x_'⁻¹'"><span class="id" type="notation">"</span></a>e ⁻¹" := (<a class="idref" href="exercises.html#sym"><span class="id" type="definition">sym</span></a> <span class="id" type="var">e</span>) (<span class="id" type="tactic">at</span> <span class="id" type="keyword">level</span> 10, <span class="id" type="var">format</span> "e '⁻¹'").<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <a name="trans"><span class="id" type="definition">trans</span></a> {<span class="id" type="var">A</span>} {<span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a>} (<span class="id" type="var">p</span> : <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a>) (<span class="id" type="var">q</span> : <a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#z"><span class="id" type="variable">z</span></a>) : <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#z"><span class="id" type="variable">z</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We make another notation for <span class="inlinecode"><a class="idref" href="exercises.html#trans"><span class="id" type="definition">trans</span></a></span>, which can be thought of as
+    concatenating or composing equality proofs. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Notation</span> <a name="::x_'@'_x"><span class="id" type="notation">"</span></a>p @ q" := (<a class="idref" href="exercises.html#trans"><span class="id" type="definition">trans</span></a> <span class="id" type="var">p</span> <span class="id" type="var">q</span>) (<span class="id" type="tactic">at</span> <span class="id" type="keyword">level</span> 20, <span class="id" type="tactic">left</span> <span class="id" type="keyword">associativity</span>).<br/>
+<span class="id" type="keyword">Notation</span> <a name="::x_'•'_x"><span class="id" type="notation">"</span></a>p • q" := (<a class="idref" href="exercises.html#trans"><span class="id" type="definition">trans</span></a> <span class="id" type="var">p</span> <span class="id" type="var">q</span>) (<span class="id" type="tactic">at</span> <span class="id" type="keyword">level</span> 20, <span class="id" type="tactic">left</span> <span class="id" type="keyword">associativity</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+When are two proofs of equality themselves equal?  Since <span class="inlinecode"><a class="idref" href="exercises.html#refl"><span class="id" type="constructor">refl</span></a></span> proves <span class="inlinecode"><a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a></span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a></span>, we have that any proof of equality is
+    equal to itself. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <a name="eq_refl_refl"><span class="id" type="definition">eq_refl_refl</span></a> : <span class="id" type="keyword">∀</span> <span class="id" type="var">A</span> (<span class="id" type="var">x</span> : <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a>), <a class="idref" href="exercises.html#refl"><span class="id" type="constructor">refl</span></a> <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#refl"><span class="id" type="constructor">refl</span></a> <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="exercises.html#admit"><span class="id" type="axiom">admit</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Our computation rules also give us that <span class="inlinecode"><span class="id" type="var">refl⁻¹</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="exercises.html#refl"><span class="id" type="constructor">refl</span></a></span> and <span class="inlinecode"><a class="idref" href="exercises.html#refl"><span class="id" type="constructor">refl</span></a></span>
+    <span class="inlinecode">•</span> <span class="inlinecode"><a class="idref" href="exercises.html#refl"><span class="id" type="constructor">refl</span></a></span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="exercises.html#refl"><span class="id" type="constructor">refl</span></a></span>. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <a name="sym_refl"><span class="id" type="definition">sym_refl</span></a> {<span class="id" type="var">A</span>} (<span class="id" type="var">x</span> : <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a>) : <a class="idref" href="exercises.html#::x_'^'"><span class="id" type="notation">(</span></a><a class="idref" href="exercises.html#refl"><span class="id" type="constructor">refl</span></a> <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a><a class="idref" href="exercises.html#::x_'^'"><span class="id" type="notation">)^</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#refl"><span class="id" type="constructor">refl</span></a> <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+</div>
+
+<div class="doc">
+unfold <span class="inlinecode"><a class="idref" href="exercises.html#sym"><span class="id" type="definition">sym</span></a></span> 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" type="tactic">cbv</span> <span class="id" type="keyword">delta</span> [<a class="idref" href="exercises.html#sym"><span class="id" type="definition">sym</span></a>].<br/>
+</div>
+
+<div class="doc">
+plug arguments into functions 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" type="tactic">cbv</span> <span class="id" type="keyword">beta</span>.<br/>
+</div>
+
+<div class="doc">
+compute pattern matches 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" type="tactic">cbv</span> <span class="id" type="keyword">iota</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <a name="trans_refl"><span class="id" type="definition">trans_refl</span></a> {<span class="id" type="var">A</span>} (<span class="id" type="var">x</span> : <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a>) : <a class="idref" href="exercises.html#refl"><span class="id" type="constructor">refl</span></a> <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a> <a class="idref" href="exercises.html#::x_'@'_x"><span class="id" type="notation">@</span></a> <a class="idref" href="exercises.html#refl"><span class="id" type="constructor">refl</span></a> <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#refl"><span class="id" type="constructor">refl</span></a> <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <a name="ap"><span class="id" type="definition">ap</span></a> {<span class="id" type="var">A</span> <span class="id" type="var">B</span>} (<span class="id" type="var">f</span> : <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a> → <a class="idref" href="exercises.html#B"><span class="id" type="variable">B</span></a>) {<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a>} : <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a> → <a class="idref" href="exercises.html#f"><span class="id" type="variable">f</span></a> <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#f"><span class="id" type="variable">f</span></a> <a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We can prove the following in two different ways: By doing case
+    analysis on <span class="inlinecode"><a class="idref" href="exercises.html#b1"><span class="id" type="variable">b1</span></a></span> then <span class="inlinecode"><a class="idref" href="exercises.html#b2"><span class="id" type="variable">b2</span></a></span>, or by doing case analysis on <span class="inlinecode"><a class="idref" href="exercises.html#b2"><span class="id" type="variable">b2</span></a></span> then
+    <span class="inlinecode"><a class="idref" href="exercises.html#b1"><span class="id" type="variable">b1</span></a></span>.
+
+<div class="paragraph"> </div>
+
+    N.B. There are more ways to prove this theorem, which might not
+    all be equal. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <a name="bool_case_1"><span class="id" type="definition">bool_case_1</span></a> : <span class="id" type="keyword">∀</span> <span class="id" type="var">b1</span> <span class="id" type="var">b2</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#bool"><span class="id" type="inductive">bool</span></a>, <a class="idref" href="exercises.html#b1"><span class="id" type="variable">b1</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#b2"><span class="id" type="variable">b2</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Logic.html#:type_scope:x_'\/'_x"><span class="id" type="notation">∨</span></a> <a class="idref" href="exercises.html#b1"><span class="id" type="variable">b1</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#true"><span class="id" type="constructor">true</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Logic.html#:type_scope:x_'\/'_x"><span class="id" type="notation">∨</span></a> <a class="idref" href="exercises.html#b2"><span class="id" type="variable">b2</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#true"><span class="id" type="constructor">true</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">b1</span> <span class="id" type="var">b2</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">case</span> <span class="id" type="var">b1</span>, <span class="id" type="var">b2</span>.<br/>
+&nbsp;&nbsp;{ <span class="id" type="var">admit</span>. }<br/>
+&nbsp;&nbsp;{ <span class="id" type="var">admit</span>. }<br/>
+&nbsp;&nbsp;{ <span class="id" type="var">admit</span>. }<br/>
+&nbsp;&nbsp;{ <span class="id" type="var">admit</span>. }<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <a name="bool_case_2"><span class="id" type="definition">bool_case_2</span></a> : <span class="id" type="keyword">∀</span> <span class="id" type="var">b1</span> <span class="id" type="var">b2</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#bool"><span class="id" type="inductive">bool</span></a>, <a class="idref" href="exercises.html#b1"><span class="id" type="variable">b1</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#b2"><span class="id" type="variable">b2</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Logic.html#:type_scope:x_'\/'_x"><span class="id" type="notation">∨</span></a> <a class="idref" href="exercises.html#b1"><span class="id" type="variable">b1</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#true"><span class="id" type="constructor">true</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Logic.html#:type_scope:x_'\/'_x"><span class="id" type="notation">∨</span></a> <a class="idref" href="exercises.html#b2"><span class="id" type="variable">b2</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#true"><span class="id" type="constructor">true</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">b1</span> <span class="id" type="var">b2</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">case</span> <span class="id" type="var">b2</span>, <span class="id" type="var">b1</span>.<br/>
+&nbsp;&nbsp;{ <span class="id" type="var">admit</span>. }<br/>
+&nbsp;&nbsp;{ <span class="id" type="var">admit</span>. }<br/>
+&nbsp;&nbsp;{ <span class="id" type="var">admit</span>. }<br/>
+&nbsp;&nbsp;{ <span class="id" type="var">admit</span>. }<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We can prove that these two proofs are equal, by case analysis on
+    <span class="inlinecode"><a class="idref" href="exercises.html#b1"><span class="id" type="variable">b1</span></a></span> and <span class="inlinecode"><a class="idref" href="exercises.html#b2"><span class="id" type="variable">b2</span></a></span>. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <a name="bool_case_eq"><span class="id" type="definition">bool_case_eq</span></a> : <span class="id" type="keyword">∀</span> <span class="id" type="var">b1</span> <span class="id" type="var">b2</span>, <a class="idref" href="exercises.html#bool_case_1"><span class="id" type="definition">bool_case_1</span></a> <a class="idref" href="exercises.html#b1"><span class="id" type="variable">b1</span></a> <a class="idref" href="exercises.html#b2"><span class="id" type="variable">b2</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#bool_case_2"><span class="id" type="definition">bool_case_2</span></a> <a class="idref" href="exercises.html#b1"><span class="id" type="variable">b1</span></a> <a class="idref" href="exercises.html#b2"><span class="id" type="variable">b2</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">b1</span> <span class="id" type="var">b2</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">unfold</span> <a class="idref" href="exercises.html#bool_case_1"><span class="id" type="definition">bool_case_1</span></a>, <a class="idref" href="exercises.html#bool_case_2"><span class="id" type="definition">bool_case_2</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">case</span> <span class="id" type="var">b1</span>, <span class="id" type="var">b2</span>.<br/>
+&nbsp;&nbsp;{ <span class="id" type="var">admit</span>. }<br/>
+&nbsp;&nbsp;{ <span class="id" type="var">admit</span>. }<br/>
+&nbsp;&nbsp;{ <span class="id" type="var">admit</span>. }<br/>
+&nbsp;&nbsp;{ <span class="id" type="var">admit</span>. }<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We can, in fact, prove this in another way, too. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <a name="bool_case_eq'"><span class="id" type="definition">bool_case_eq'</span></a> : <span class="id" type="keyword">∀</span> <span class="id" type="var">b1</span> <span class="id" type="var">b2</span>, <a class="idref" href="exercises.html#bool_case_1"><span class="id" type="definition">bool_case_1</span></a> <a class="idref" href="exercises.html#b1"><span class="id" type="variable">b1</span></a> <a class="idref" href="exercises.html#b2"><span class="id" type="variable">b2</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#bool_case_2"><span class="id" type="definition">bool_case_2</span></a> <a class="idref" href="exercises.html#b1"><span class="id" type="variable">b1</span></a> <a class="idref" href="exercises.html#b2"><span class="id" type="variable">b2</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">b1</span> <span class="id" type="var">b2</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">unfold</span> <a class="idref" href="exercises.html#bool_case_1"><span class="id" type="definition">bool_case_1</span></a>, <a class="idref" href="exercises.html#bool_case_2"><span class="id" type="definition">bool_case_2</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">case</span> <span class="id" type="var">b2</span>, <span class="id" type="var">b1</span>.<br/>
+&nbsp;&nbsp;{ <span class="id" type="var">admit</span>. }<br/>
+&nbsp;&nbsp;{ <span class="id" type="var">admit</span>. }<br/>
+&nbsp;&nbsp;{ <span class="id" type="var">admit</span>. }<br/>
+&nbsp;&nbsp;{ <span class="id" type="var">admit</span>. }<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+And we can prove that these two ways are equal... 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <a name="bool_case_eq_eq"><span class="id" type="definition">bool_case_eq_eq</span></a> : <span class="id" type="keyword">∀</span> <span class="id" type="var">b1</span> <span class="id" type="var">b2</span>, <a class="idref" href="exercises.html#bool_case_eq"><span class="id" type="definition">bool_case_eq</span></a> <a class="idref" href="exercises.html#b1"><span class="id" type="variable">b1</span></a> <a class="idref" href="exercises.html#b2"><span class="id" type="variable">b2</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#bool_case_eq'"><span class="id" type="definition">bool_case_eq'</span></a> <a class="idref" href="exercises.html#b1"><span class="id" type="variable">b1</span></a> <a class="idref" href="exercises.html#b2"><span class="id" type="variable">b2</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">b1</span> <span class="id" type="var">b2</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">unfold</span> <a class="idref" href="exercises.html#bool_case_eq"><span class="id" type="definition">bool_case_eq</span></a>, <a class="idref" href="exercises.html#bool_case_eq'"><span class="id" type="definition">bool_case_eq'</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">case</span> <span class="id" type="var">b1</span>, <span class="id" type="var">b2</span>.<br/>
+&nbsp;&nbsp;{ <span class="id" type="var">admit</span>. }<br/>
+&nbsp;&nbsp;{ <span class="id" type="var">admit</span>. }<br/>
+&nbsp;&nbsp;{ <span class="id" type="var">admit</span>. }<br/>
+&nbsp;&nbsp;{ <span class="id" type="var">admit</span>. }<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+What other properties can we prove? 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <a name="sym_sym"><span class="id" type="definition">sym_sym</span></a> {<span class="id" type="var">A</span>} (<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a>) (<span class="id" type="var">e</span> : <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a>) : <a class="idref" href="exercises.html#::x_'^'"><span class="id" type="notation">(</span></a><a class="idref" href="exercises.html#e"><span class="id" type="variable">e</span></a><a class="idref" href="exercises.html#::x_'^'"><span class="id" type="notation">^)^</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#e"><span class="id" type="variable">e</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <a name="trans_1p"><span class="id" type="definition">trans_1p</span></a> {<span class="id" type="var">A</span>} {<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a>} (<span class="id" type="var">e</span> : <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a>) : <a class="idref" href="exercises.html#refl"><span class="id" type="constructor">refl</span></a> <a class="idref" href="exercises.html#::x_'@'_x"><span class="id" type="notation">@</span></a> <a class="idref" href="exercises.html#e"><span class="id" type="variable">e</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#e"><span class="id" type="variable">e</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <a name="trans_p1"><span class="id" type="definition">trans_p1</span></a> {<span class="id" type="var">A</span>} {<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a>} (<span class="id" type="var">e</span> : <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a>) : <a class="idref" href="exercises.html#e"><span class="id" type="variable">e</span></a> <a class="idref" href="exercises.html#::x_'@'_x"><span class="id" type="notation">@</span></a> <a class="idref" href="exercises.html#refl"><span class="id" type="constructor">refl</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#e"><span class="id" type="variable">e</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <a name="trans_assoc"><span class="id" type="definition">trans_assoc</span></a> {<span class="id" type="var">A</span>} {<span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> <span class="id" type="var">w</span> : <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a>} (<span class="id" type="var">p</span> : <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a>) (<span class="id" type="var">q</span> : <a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#z"><span class="id" type="variable">z</span></a>) (<span class="id" type="var">r</span> : <a class="idref" href="exercises.html#z"><span class="id" type="variable">z</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#w"><span class="id" type="variable">w</span></a>)<br/>
+: <a class="idref" href="exercises.html#::x_'@'_x"><span class="id" type="notation">(</span></a><a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a> <a class="idref" href="exercises.html#::x_'@'_x"><span class="id" type="notation">@</span></a> <a class="idref" href="exercises.html#q"><span class="id" type="variable">q</span></a><a class="idref" href="exercises.html#::x_'@'_x"><span class="id" type="notation">)</span></a> <a class="idref" href="exercises.html#::x_'@'_x"><span class="id" type="notation">@</span></a> <a class="idref" href="exercises.html#r"><span class="id" type="variable">r</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a> <a class="idref" href="exercises.html#::x_'@'_x"><span class="id" type="notation">@</span></a> <a class="idref" href="exercises.html#::x_'@'_x"><span class="id" type="notation">(</span></a><a class="idref" href="exercises.html#q"><span class="id" type="variable">q</span></a> <a class="idref" href="exercises.html#::x_'@'_x"><span class="id" type="notation">@</span></a> <a class="idref" href="exercises.html#r"><span class="id" type="variable">r</span></a><a class="idref" href="exercises.html#::x_'@'_x"><span class="id" type="notation">)</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <a name="trans_pV"><span class="id" type="definition">trans_pV</span></a> {<span class="id" type="var">A</span>} (<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a>) (<span class="id" type="var">p</span> : <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a>) : <a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a> <a class="idref" href="exercises.html#::x_'@'_x"><span class="id" type="notation">@</span></a> <a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a><a class="idref" href="exercises.html#::x_'^'"><span class="id" type="notation">^</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#refl"><span class="id" type="constructor">refl</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <a name="trans_Vp"><span class="id" type="definition">trans_Vp</span></a> {<span class="id" type="var">A</span>} (<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a>) (<span class="id" type="var">p</span> : <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a>) : <a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a><a class="idref" href="exercises.html#::x_'^'"><span class="id" type="notation">^</span></a> <a class="idref" href="exercises.html#::x_'@'_x"><span class="id" type="notation">@</span></a> <a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#refl"><span class="id" type="constructor">refl</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <a name="trans_sym"><span class="id" type="definition">trans_sym</span></a> {<span class="id" type="var">A</span>} (<span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a>) (<span class="id" type="var">p</span> : <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a>) (<span class="id" type="var">q</span> : <a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#z"><span class="id" type="variable">z</span></a>)<br/>
+: <a class="idref" href="exercises.html#::x_'^'"><span class="id" type="notation">(</span></a><a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a> <a class="idref" href="exercises.html#::x_'@'_x"><span class="id" type="notation">@</span></a> <a class="idref" href="exercises.html#q"><span class="id" type="variable">q</span></a><a class="idref" href="exercises.html#::x_'^'"><span class="id" type="notation">)^</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#q"><span class="id" type="variable">q</span></a><a class="idref" href="exercises.html#::x_'^'"><span class="id" type="notation">^</span></a> <a class="idref" href="exercises.html#::x_'@'_x"><span class="id" type="notation">@</span></a> <a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a><a class="idref" href="exercises.html#::x_'^'"><span class="id" type="notation">^</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+There are also rules for how <span class="inlinecode"><a class="idref" href="exercises.html#ap"><span class="id" type="definition">ap</span></a></span> plays with <span class="inlinecode"><a class="idref" href="exercises.html#trans"><span class="id" type="definition">trans</span></a></span> and <span class="inlinecode"><a class="idref" href="exercises.html#sym"><span class="id" type="definition">sym</span></a></span>.
+    Try to state and prove them. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <a name="ap_sym"><span class="id" type="definition">ap_sym</span></a> {<span class="id" type="var">A</span> <span class="id" type="var">B</span>} (<span class="id" type="var">f</span> : <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a> → <a class="idref" href="exercises.html#B"><span class="id" type="variable">B</span></a>) {<span class="id" type="var">a</span> <span class="id" type="var">b</span> : <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a>} (<span class="id" type="var">p</span> : <a class="idref" href="exercises.html#a"><span class="id" type="variable">a</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#b"><span class="id" type="variable">b</span></a>)<br/>
+: <a class="idref" href="exercises.html#admit"><span class="id" type="axiom">admit</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <a name="ap_trans"><span class="id" type="definition">ap_trans</span></a> {<span class="id" type="var">A</span> <span class="id" type="var">B</span>} (<span class="id" type="var">f</span> : <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a> → <a class="idref" href="exercises.html#B"><span class="id" type="variable">B</span></a>) {<span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">c</span> : <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a>} (<span class="id" type="var">p</span> : <a class="idref" href="exercises.html#a"><span class="id" type="variable">a</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#b"><span class="id" type="variable">b</span></a>) (<span class="id" type="var">q</span> : <a class="idref" href="exercises.html#b"><span class="id" type="variable">b</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#c"><span class="id" type="variable">c</span></a>)<br/>
+: <a class="idref" href="exercises.html#admit"><span class="id" type="axiom">admit</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Now back to the rules not involving <span class="inlinecode"><a class="idref" href="exercises.html#ap"><span class="id" type="definition">ap</span></a></span>. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <a name="whisker_l"><span class="id" type="definition">whisker_l</span></a> {<span class="id" type="var">A</span>} {<span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a>} (<span class="id" type="var">r</span> : <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a>) {<span class="id" type="var">p</span> <span class="id" type="var">q</span> : <a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#z"><span class="id" type="variable">z</span></a>} (<span class="id" type="var">w</span> : <a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#q"><span class="id" type="variable">q</span></a>)<br/>
+: <a class="idref" href="exercises.html#r"><span class="id" type="variable">r</span></a> <a class="idref" href="exercises.html#::x_'@'_x"><span class="id" type="notation">@</span></a> <a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#r"><span class="id" type="variable">r</span></a> <a class="idref" href="exercises.html#::x_'@'_x"><span class="id" type="notation">@</span></a> <a class="idref" href="exercises.html#q"><span class="id" type="variable">q</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <a name="whisker_r"><span class="id" type="definition">whisker_r</span></a> {<span class="id" type="var">A</span>} {<span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a>} {<span class="id" type="var">p</span> <span class="id" type="var">q</span> : <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a>} (<span class="id" type="var">w</span> : <a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#q"><span class="id" type="variable">q</span></a>) (<span class="id" type="var">r</span> : <a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#z"><span class="id" type="variable">z</span></a>)<br/>
+: <a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a> <a class="idref" href="exercises.html#::x_'@'_x"><span class="id" type="notation">@</span></a> <a class="idref" href="exercises.html#r"><span class="id" type="variable">r</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#q"><span class="id" type="variable">q</span></a> <a class="idref" href="exercises.html#::x_'@'_x"><span class="id" type="notation">@</span></a> <a class="idref" href="exercises.html#r"><span class="id" type="variable">r</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Notation</span> <a name="::x_'@L'_x"><span class="id" type="notation">"</span></a>r @L w" := (<a class="idref" href="exercises.html#whisker_l"><span class="id" type="definition">whisker_l</span></a> <span class="id" type="var">r</span> <span class="id" type="var">w</span>) (<span class="id" type="tactic">at</span> <span class="id" type="keyword">level</span> 20).<br/>
+<span class="id" type="keyword">Notation</span> <a name="::x_'•ˡ'_x"><span class="id" type="notation">"</span></a>r •ˡ w" := (<a class="idref" href="exercises.html#whisker_l"><span class="id" type="definition">whisker_l</span></a> <span class="id" type="var">r</span> <span class="id" type="var">w</span>) (<span class="id" type="tactic">at</span> <span class="id" type="keyword">level</span> 20).<br/>
+<span class="id" type="keyword">Notation</span> <a name="::x_'@R'_x"><span class="id" type="notation">"</span></a>w @R r" := (<a class="idref" href="exercises.html#whisker_r"><span class="id" type="definition">whisker_r</span></a> <span class="id" type="var">w</span> <span class="id" type="var">r</span>) (<span class="id" type="tactic">at</span> <span class="id" type="keyword">level</span> 20).<br/>
+<span class="id" type="keyword">Notation</span> <a name="::x_'•ʳ'_x"><span class="id" type="notation">"</span></a>w •ʳ r" := (<a class="idref" href="exercises.html#whisker_r"><span class="id" type="definition">whisker_r</span></a> <span class="id" type="var">w</span> <span class="id" type="var">r</span>) (<span class="id" type="tactic">at</span> <span class="id" type="keyword">level</span> 20).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We can relate <span class="inlinecode"><a class="idref" href="exercises.html#trans_1p"><span class="id" type="definition">trans_1p</span></a></span>, <span class="inlinecode"><a class="idref" href="exercises.html#trans_p1"><span class="id" type="definition">trans_p1</span></a></span>, and <span class="inlinecode"><a class="idref" href="exercises.html#trans_assoc"><span class="id" type="definition">trans_assoc</span></a></span> in a
+    commutative triangle:
+<pre>
+    (p • refl) • q == p • (refl • q)
+           \\          //
+             \\      //
+               \\  //
+                p • q
+</pre>
+ 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <a name="triangle_leg_1"><span class="id" type="definition">triangle_leg_1</span></a> {<span class="id" type="var">A</span>} {<span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a>} (<span class="id" type="var">p</span> : <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a>) (<span class="id" type="var">q</span> : <a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#z"><span class="id" type="variable">z</span></a>)<br/>
+: <a class="idref" href="exercises.html#::x_'@'_x"><span class="id" type="notation">(</span></a><a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a> <a class="idref" href="exercises.html#::x_'@'_x"><span class="id" type="notation">@</span></a> <a class="idref" href="exercises.html#refl"><span class="id" type="constructor">refl</span></a><a class="idref" href="exercises.html#::x_'@'_x"><span class="id" type="notation">)</span></a> <a class="idref" href="exercises.html#::x_'@'_x"><span class="id" type="notation">@</span></a> <a class="idref" href="exercises.html#q"><span class="id" type="variable">q</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a> <a class="idref" href="exercises.html#::x_'@'_x"><span class="id" type="notation">@</span></a> <a class="idref" href="exercises.html#::x_'@'_x"><span class="id" type="notation">(</span></a><a class="idref" href="exercises.html#refl"><span class="id" type="constructor">refl</span></a> <a class="idref" href="exercises.html#::x_'@'_x"><span class="id" type="notation">@</span></a> <a class="idref" href="exercises.html#q"><span class="id" type="variable">q</span></a><a class="idref" href="exercises.html#::x_'@'_x"><span class="id" type="notation">)</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="exercises.html#trans_assoc"><span class="id" type="definition">trans_assoc</span></a> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span>.<br/>
+<span class="id" type="keyword">Definition</span> <a name="triangle_leg_2"><span class="id" type="definition">triangle_leg_2</span></a> {<span class="id" type="var">A</span>} {<span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a>} (<span class="id" type="var">p</span> : <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a>) (<span class="id" type="var">q</span> : <a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#z"><span class="id" type="variable">z</span></a>)<br/>
+: <a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a> <a class="idref" href="exercises.html#::x_'@'_x"><span class="id" type="notation">@</span></a> <a class="idref" href="exercises.html#::x_'@'_x"><span class="id" type="notation">(</span></a><a class="idref" href="exercises.html#refl"><span class="id" type="constructor">refl</span></a> <a class="idref" href="exercises.html#::x_'@'_x"><span class="id" type="notation">@</span></a> <a class="idref" href="exercises.html#q"><span class="id" type="variable">q</span></a><a class="idref" href="exercises.html#::x_'@'_x"><span class="id" type="notation">)</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a> <a class="idref" href="exercises.html#::x_'@'_x"><span class="id" type="notation">@</span></a> <a class="idref" href="exercises.html#q"><span class="id" type="variable">q</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a> <a class="idref" href="exercises.html#::x_'@L'_x"><span class="id" type="notation">@</span></a><a class="idref" href="exercises.html#::x_'@L'_x"><span class="id" type="notation">L</span></a> <a class="idref" href="exercises.html#trans_1p"><span class="id" type="definition">trans_1p</span></a> <a class="idref" href="exercises.html#q"><span class="id" type="variable">q</span></a>.<br/>
+<span class="id" type="keyword">Definition</span> <a name="triangle_leg_3"><span class="id" type="definition">triangle_leg_3</span></a> {<span class="id" type="var">A</span>} {<span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a>} (<span class="id" type="var">p</span> : <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a>) (<span class="id" type="var">q</span> : <a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#z"><span class="id" type="variable">z</span></a>)<br/>
+: <a class="idref" href="exercises.html#::x_'@'_x"><span class="id" type="notation">(</span></a><a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a> <a class="idref" href="exercises.html#::x_'@'_x"><span class="id" type="notation">@</span></a> <a class="idref" href="exercises.html#refl"><span class="id" type="constructor">refl</span></a><a class="idref" href="exercises.html#::x_'@'_x"><span class="id" type="notation">)</span></a> <a class="idref" href="exercises.html#::x_'@'_x"><span class="id" type="notation">@</span></a> <a class="idref" href="exercises.html#q"><span class="id" type="variable">q</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a> <a class="idref" href="exercises.html#::x_'@'_x"><span class="id" type="notation">@</span></a> <a class="idref" href="exercises.html#q"><span class="id" type="variable">q</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="exercises.html#trans_p1"><span class="id" type="definition">trans_p1</span></a> <a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a> <a class="idref" href="exercises.html#::x_'@R'_x"><span class="id" type="notation">@</span></a><a class="idref" href="exercises.html#::x_'@R'_x"><span class="id" type="notation">R</span></a> <a class="idref" href="exercises.html#q"><span class="id" type="variable">q</span></a>.<br/>
+<span class="id" type="keyword">Definition</span> <a name="triangle"><span class="id" type="definition">triangle</span></a> {<span class="id" type="var">A</span>} {<span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a>} (<span class="id" type="var">p</span> : <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a>) (<span class="id" type="var">q</span> : <a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#z"><span class="id" type="variable">z</span></a>)<br/>
+: <a class="idref" href="exercises.html#triangle_leg_1"><span class="id" type="definition">triangle_leg_1</span></a> <a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a> <a class="idref" href="exercises.html#q"><span class="id" type="variable">q</span></a> <a class="idref" href="exercises.html#::x_'@'_x"><span class="id" type="notation">@</span></a> <a class="idref" href="exercises.html#triangle_leg_2"><span class="id" type="definition">triangle_leg_2</span></a> <a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a> <a class="idref" href="exercises.html#q"><span class="id" type="variable">q</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#triangle_leg_3"><span class="id" type="definition">triangle_leg_3</span></a> <a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a> <a class="idref" href="exercises.html#q"><span class="id" type="variable">q</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">unfold</span> <a class="idref" href="exercises.html#triangle_leg_1"><span class="id" type="definition">triangle_leg_1</span></a>, <a class="idref" href="exercises.html#triangle_leg_2"><span class="id" type="definition">triangle_leg_2</span></a>, <a class="idref" href="exercises.html#triangle_leg_3"><span class="id" type="definition">triangle_leg_3</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+There is a similar pentagon relating the two different ways of
+    proving that <span class="inlinecode"><a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a></span> <span class="inlinecode">@</span> <span class="inlinecode">(<a class="idref" href="exercises.html#q"><span class="id" type="variable">q</span></a></span> <span class="inlinecode">@</span> <span class="inlinecode">(<a class="idref" href="exercises.html#r"><span class="id" type="variable">r</span></a></span> <span class="inlinecode">@</span> <span class="inlinecode"><span class="id" type="var">s</span>))</span> <span class="inlinecode">=</span> <span class="inlinecode">((<a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a></span> <span class="inlinecode">@</span> <span class="inlinecode"><a class="idref" href="exercises.html#q"><span class="id" type="variable">q</span></a>)</span> <span class="inlinecode">@</span> <span class="inlinecode"><a class="idref" href="exercises.html#r"><span class="id" type="variable">r</span></a>)</span> <span class="inlinecode">@</span> <span class="inlinecode"><span class="id" type="var">s</span></span> using chains
+    of <span class="inlinecode"><a class="idref" href="exercises.html#trans_assoc"><span class="id" type="definition">trans_assoc</span></a></span>.
+
+<div class="paragraph"> </div>
+
+    Write down the five legs of this pentagon, and prove that the two
+    paths are equal. 
+<div class="paragraph"> </div>
+
+<pre>
+  ((p @ q) @ r) @ s ======= (p @ (q @ r)) @ s
+          ||                    ||
+          ||                    ||
+          ||                    ||
+   (p @ q) @ (r @ s)         p @ ((q @ r) @ s)
+          \\                   //
+            \\               //
+              \\           //
+                \\       //
+             p @ (q @ (r @ s))
+</pre>
+ 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <a name="pentagon"><span class="id" type="definition">pentagon</span></a> {<span class="id" type="var">A</span>} {<span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">c</span> <span class="id" type="var">d</span> <span class="id" type="var">e</span> : <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a>} (<span class="id" type="var">p</span> : <a class="idref" href="exercises.html#a"><span class="id" type="variable">a</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#b"><span class="id" type="variable">b</span></a>) (<span class="id" type="var">q</span> : <a class="idref" href="exercises.html#b"><span class="id" type="variable">b</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#c"><span class="id" type="variable">c</span></a>) (<span class="id" type="var">r</span> : <a class="idref" href="exercises.html#c"><span class="id" type="variable">c</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#d"><span class="id" type="variable">d</span></a>) (<span class="id" type="var">s</span> : <a class="idref" href="exercises.html#d"><span class="id" type="variable">d</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#e"><span class="id" type="variable">e</span></a>)<br/>
+: <a class="idref" href="exercises.html#admit"><span class="id" type="axiom">admit</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+There are higher dimensional rules, too, that relate the triangle
+    and the pentagon.  They are known as Stasheff polyhedra or
+    associahedra. 
+<div class="paragraph"> </div>
+
+ Let's look at more complicated things. 
+<div class="paragraph"> </div>
+
+ We can proof that all proofs of <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Logic.html#False"><span class="id" type="inductive">False</span></a></span> are equal
+
+<div class="paragraph"> </div>
+
+    Hint 1: There are no such proofs.
+
+<div class="paragraph"> </div>
+
+    Hint 2: You can use <span class="inlinecode"><span class="id" type="var">exfalso</span></span> to say "it sufficies to prove
+            <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Logic.html#False"><span class="id" type="inductive">False</span></a></span>". 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <a name="all_eq_False"><span class="id" type="lemma">all_eq_False</span></a> : <span class="id" type="keyword">∀</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Logic.html#False"><span class="id" type="inductive">False</span></a>, <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <a name="all_eq_eq_False"><span class="id" type="lemma">all_eq_eq_False</span></a> : <span class="id" type="keyword">∀</span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Logic.html#False"><span class="id" type="inductive">False</span></a>) (<span class="id" type="var">p</span> <span class="id" type="var">q</span> : <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a>), <a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#q"><span class="id" type="variable">q</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We can prove that all proofs of <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#false"><span class="id" type="constructor">false</span></a></span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#true"><span class="id" type="constructor">true</span></a></span> are equal. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <a name="all_eq_false_true"><span class="id" type="lemma">all_eq_false_true</span></a> : <span class="id" type="keyword">∀</span> <span class="id" type="var">p</span> <span class="id" type="var">q</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#false"><span class="id" type="constructor">false</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#true"><span class="id" type="constructor">true</span></a>, <a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#q"><span class="id" type="variable">q</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We can proof that all proofs of equality of things of type <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#unit"><span class="id" type="inductive">unit</span></a></span>
+    are equal, but we need to prove something more general. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Print</span> <span class="id" type="var">unit</span>.<br/>
+</div>
+
+<div class="doc">
+It sufficies to prove that all <span class="inlinecode"><a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a></span> <span class="inlinecode">:</span> <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#unit"><span class="id" type="inductive">unit</span></a></span> are equal to <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#tt"><span class="id" type="constructor">tt</span></a></span>.  To
+    do this, we need to construct a canonical proof of <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#tt"><span class="id" type="constructor">tt</span></a></span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a></span> for
+    all <span class="inlinecode"><a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a></span>. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <a name="unit_canonical_proof"><span class="id" type="lemma">unit_canonical_proof</span></a> : <span class="id" type="keyword">∀</span> <span class="id" type="var">x</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#unit"><span class="id" type="inductive">unit</span></a>, <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#tt"><span class="id" type="constructor">tt</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <a name="eq_unit_tt"><span class="id" type="lemma">eq_unit_tt</span></a> {<span class="id" type="var">x</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#unit"><span class="id" type="inductive">unit</span></a>} (<span class="id" type="var">p</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#tt"><span class="id" type="constructor">tt</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a>) : <a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#unit_canonical_proof"><span class="id" type="lemma">unit_canonical_proof</span></a> <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Note: to see the result of applying a theorem to an argument, you
+    can use <span class="inlinecode"><span class="id" type="tactic">pose</span></span> <span class="inlinecode"><span class="id" type="var">proof</span></span> <span class="inlinecode">(<span class="id" type="var">thm</span></span> <span class="inlinecode"><span class="id" type="var">args</span>)</span> <span class="inlinecode"><span class="id" type="keyword">as</span></span> <span class="inlinecode"><span class="id" type="var">H</span></span>. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <a name="UIP_tt"><span class="id" type="lemma">UIP_tt</span></a> : <span class="id" type="keyword">∀</span> <span class="id" type="var">p</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#tt"><span class="id" type="constructor">tt</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#tt"><span class="id" type="constructor">tt</span></a>, <a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#refl"><span class="id" type="constructor">refl</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <a name="UIP_unit"><span class="id" type="lemma">UIP_unit</span></a> {<span class="id" type="var">x</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#unit"><span class="id" type="inductive">unit</span></a>} : <span class="id" type="keyword">∀</span> <span class="id" type="var">p</span> : <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a>, <a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#refl"><span class="id" type="constructor">refl</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+It is possible to prove that all proofs of <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#true"><span class="id" type="constructor">true</span></a></span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#true"><span class="id" type="constructor">true</span></a></span> are
+    equal, but we have to prove a more general theorem.  Namely, we
+    need to prove a fact for all <span class="inlinecode"><a class="idref" href="exercises.html#b"><span class="id" type="variable">b</span></a></span> <span class="inlinecode">:</span> <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#bool"><span class="id" type="inductive">bool</span></a></span> and <span class="inlinecode"><a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a></span> <span class="inlinecode">:</span> <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#true"><span class="id" type="constructor">true</span></a></span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="exercises.html#b"><span class="id" type="variable">b</span></a></span> at
+    once.  In the case that <span class="inlinecode"><a class="idref" href="exercises.html#b"><span class="id" type="variable">b</span></a></span> is <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#true"><span class="id" type="constructor">true</span></a></span>, we prove that <span class="inlinecode"><a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a></span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="exercises.html#refl"><span class="id" type="constructor">refl</span></a></span>.
+    In the case that <span class="inlinecode"><a class="idref" href="exercises.html#b"><span class="id" type="variable">b</span></a></span> is <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#false"><span class="id" type="constructor">false</span></a></span>, we prove absurdity (<span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Logic.html#False"><span class="id" type="inductive">False</span></a></span>). 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <a name="eq_true_canonical_proof"><span class="id" type="definition">eq_true_canonical_proof</span></a> {<span class="id" type="var">b</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#bool"><span class="id" type="inductive">bool</span></a>} (<span class="id" type="var">p</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#true"><span class="id" type="constructor">true</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#b"><span class="id" type="variable">b</span></a>)<br/>
+: <span class="id" type="keyword">match</span> <a class="idref" href="exercises.html#b"><span class="id" type="variable">b</span></a> <span class="id" type="keyword">as</span> <span class="id" type="var">b'</span> <span class="id" type="keyword">return</span> <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#true"><span class="id" type="constructor">true</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#b'"><span class="id" type="variable">b'</span></a> → <span class="id" type="keyword">Prop</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#true"><span class="id" type="constructor">true</span></a> ⇒ <span class="id" type="keyword">fun</span> <span class="id" type="var">p'</span> ⇒ <a class="idref" href="exercises.html#p'"><span class="id" type="variable">p'</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#refl"><span class="id" type="constructor">refl</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#false"><span class="id" type="constructor">false</span></a> ⇒ <span class="id" type="keyword">fun</span> <span class="id" type="var">_</span> ⇒ <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Logic.html#False"><span class="id" type="inductive">False</span></a><br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span> <a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+UIP stands for "uniqueness of identity proofs". 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <a name="UIP_true_true"><span class="id" type="definition">UIP_true_true</span></a> (<span class="id" type="var">p</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#true"><span class="id" type="constructor">true</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#true"><span class="id" type="constructor">true</span></a>) : <a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#refl"><span class="id" type="constructor">refl</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+More generally, we can prove uniqueness of identity proofs for
+    booleans. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <a name="eq_bool_canonical_proof"><span class="id" type="definition">eq_bool_canonical_proof</span></a> {<span class="id" type="var">b1</span> <span class="id" type="var">b2</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#bool"><span class="id" type="inductive">bool</span></a>} (<span class="id" type="var">p</span> : <a class="idref" href="exercises.html#b1"><span class="id" type="variable">b1</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#b2"><span class="id" type="variable">b2</span></a>)<br/>
+: <span class="id" type="keyword">match</span> <a class="idref" href="exercises.html#b1"><span class="id" type="variable">b1</span></a> <span class="id" type="keyword">as</span> <span class="id" type="var">b1'</span>, <a class="idref" href="exercises.html#b2"><span class="id" type="variable">b2</span></a> <span class="id" type="keyword">as</span> <span class="id" type="var">b2'</span> <span class="id" type="keyword">return</span> <a class="idref" href="exercises.html#b1'"><span class="id" type="variable">b1'</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#b2'"><span class="id" type="variable">b2'</span></a> → <span class="id" type="keyword">Prop</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#true"><span class="id" type="constructor">true</span></a>, <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#true"><span class="id" type="constructor">true</span></a> ⇒ <span class="id" type="keyword">fun</span> <span class="id" type="var">p'</span> ⇒ <a class="idref" href="exercises.html#p'"><span class="id" type="variable">p'</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#refl"><span class="id" type="constructor">refl</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#false"><span class="id" type="constructor">false</span></a>, <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#false"><span class="id" type="constructor">false</span></a> ⇒ <span class="id" type="keyword">fun</span> <span class="id" type="var">p'</span> ⇒ <a class="idref" href="exercises.html#p'"><span class="id" type="variable">p'</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#refl"><span class="id" type="constructor">refl</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#true"><span class="id" type="constructor">true</span></a>, <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#false"><span class="id" type="constructor">false</span></a> ⇒ <span class="id" type="keyword">fun</span> <span class="id" type="var">_</span> ⇒ <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Logic.html#False"><span class="id" type="inductive">False</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#false"><span class="id" type="constructor">false</span></a>, <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#true"><span class="id" type="constructor">true</span></a> ⇒ <span class="id" type="keyword">fun</span> <span class="id" type="var">_</span> ⇒ <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Logic.html#False"><span class="id" type="inductive">False</span></a><br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span> <a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <a name="UIP_bool"><span class="id" type="definition">UIP_bool</span></a> {<span class="id" type="var">b1</span> <span class="id" type="var">b2</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.4pl4/stdlib/Coq.Init.Datatypes.html#bool"><span class="id" type="inductive">bool</span></a>} : <span class="id" type="keyword">∀</span> <span class="id" type="var">p</span> <span class="id" type="var">q</span> : <a class="idref" href="exercises.html#b1"><span class="id" type="variable">b1</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#b2"><span class="id" type="variable">b2</span></a>, <a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#q"><span class="id" type="variable">q</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+It is possible to prove that UIP goes up levels. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <a name="UIP_bump_helper"><span class="id" type="lemma">UIP_bump_helper</span></a> {<span class="id" type="var">A</span>} {<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a>}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="var">UIP_A</span> : <span class="id" type="keyword">∀</span> (<span class="id" type="var">p</span> <span class="id" type="var">q</span> : <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a>), <a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#q"><span class="id" type="variable">q</span></a>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="var">UIP_A_comp</span> : <span class="id" type="keyword">∀</span> (<span class="id" type="var">p</span> : <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a>), <a class="idref" href="exercises.html#UIP_A"><span class="id" type="variable">UIP_A</span></a> <a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a> <a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#refl"><span class="id" type="constructor">refl</span></a>)<br/>
+: <span class="id" type="keyword">∀</span> (<span class="id" type="var">p</span> <span class="id" type="var">q</span> : <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a>) (<span class="id" type="var">T</span> <span class="id" type="var">U</span> : <a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#q"><span class="id" type="variable">q</span></a>), <a class="idref" href="exercises.html#T"><span class="id" type="variable">T</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#U"><span class="id" type="variable">U</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <a name="UIP_adjust"><span class="id" type="definition">UIP_adjust</span></a> {<span class="id" type="var">A</span>} {<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a>} (<span class="id" type="var">H</span> : <span class="id" type="keyword">∀</span> (<span class="id" type="var">p</span> <span class="id" type="var">q</span> : <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a>), <a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#q"><span class="id" type="variable">q</span></a>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="var">p</span> <span class="id" type="var">q</span> : <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a>)<br/>
+: <a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#q"><span class="id" type="variable">q</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <a name="UIP_bump"><span class="id" type="lemma">UIP_bump</span></a> {<span class="id" type="var">A</span>} {<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a>}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="var">UIP_A</span> : <span class="id" type="keyword">∀</span> (<span class="id" type="var">p</span> <span class="id" type="var">q</span> : <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a>), <a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#q"><span class="id" type="variable">q</span></a>)<br/>
+: <span class="id" type="keyword">∀</span> (<span class="id" type="var">p</span> <span class="id" type="var">q</span> : <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a>) (<span class="id" type="var">T</span> <span class="id" type="var">U</span> : <a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#q"><span class="id" type="variable">q</span></a>), <a class="idref" href="exercises.html#T"><span class="id" type="variable">T</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#U"><span class="id" type="variable">U</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Can you prove this in general?  We can try to ask: "Are all proofs of equality equal to
+    reflexivity?"  But this question does not typecheck.  There are
+    subtle reasons for this, and it ends up being important. 
+</div>
+<div class="code">
+<span class="id" type="var">Fail</span> <span class="id" type="keyword">Check</span> <span class="id" type="keyword">∀</span> <span class="id" type="var">A</span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a>) (<span class="id" type="var">p</span> : <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#y"><span class="id" type="variable">y</span></a>), <a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#refl"><span class="id" type="constructor">refl</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We can instead try to prove that any proof of <span class="inlinecode"><a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a></span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a></span> is
+    <span class="inlinecode"><a class="idref" href="exercises.html#refl"><span class="id" type="constructor">refl</span></a></span>. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <a name="UIP"><span class="id" type="lemma">UIP</span></a> : <span class="id" type="keyword">∀</span> {<span class="id" type="var">A</span>} {<span class="id" type="var">x</span> : <a class="idref" href="exercises.html#A"><span class="id" type="variable">A</span></a>} (<span class="id" type="var">p</span> : <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#x"><span class="id" type="variable">x</span></a>), <a class="idref" href="exercises.html#p"><span class="id" type="variable">p</span></a> <a class="idref" href="exercises.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="exercises.html#refl"><span class="id" type="constructor">refl</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="var">admit</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>
