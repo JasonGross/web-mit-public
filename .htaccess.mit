@@ -1,0 +1,10 @@
+Options +Indexes
+
+<FilesMatch "^[^.]*$">
+ForceType 'text/plain; charset=UTF-8'
+</FilesMatch>
+
+<FilesMatch "^.*\.txt$">
+ForceType 'text/plain; charset=UTF-8'
+</FilesMatch>
+
