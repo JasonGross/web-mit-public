@@ -1,0 +1,1144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="coqdoc.css" rel="stylesheet" type="text/css" />
+<title>Top.exercises_and_homework_day_2_filled_in</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+</div>
+
+<div class="doc">
+<a name="lab1"></a><h1 class="section">Exploring equality via homotopy and proof assistants - Day 3 - Equality in Coq</h1>
+ Note: You may use either the lab computers, or your laptop.  Coq may not be installed on the Windows computers, you should use the Macs.  If the Macs do not have CoqIDE installed, you can go to https://coq.inria.fr/coq-85, download CoqIDE_8.5beta2.dmg, open it, and run CoqIDE directly, without installing it.
+
+<div class="paragraph"> </div>
+
+  This file contains the exercises for Day 3, which are just the exercises for Day 2, with what we did yesterday filled in.  Some are explicitly marked as "Homework"; the rest can be done either in class or for homework.
+
+<div class="paragraph"> </div>
+
+  When doing exercises on your own, feel free to skip around; there are some interesting puzzles near the bottom (around <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#J_implies_UIP"><span class="id" title="definition">J_implies_UIP</span></a></span>).
+
+<div class="paragraph"> </div>
+
+  If you feel like you know exactly how a proof will go, but find it painful and tedious to write out the proof terms explicitly, come find me.  Coq has a lot of support for automation and taking care of things that are easy and verbose, so you don't have to. Proving should feel like a game.  If it doesn't, I can probably help you with that.
+
+<div class="paragraph"> </div>
+
+  N.B. There are many theorem provers out there, e.g., Agda, Idris, NuPRL, Otter, Twelf, Isabelle/HOL, Mizar, Metamath 
+<div class="paragraph"> </div>
+
+ The following are placeholders; <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a></span> indicates that something should be filled in later. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Axiom</span> <a name="admit"><span class="id" title="axiom">admit</span></a> : <span class="id" title="keyword">∀</span> {<span class="id" title="var">T</span>}, <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#T"><span class="id" title="variable">T</span></a>.<br/>
+<span class="id" title="keyword">Axiom</span> <a name="admit1"><span class="id" title="axiom">admit1</span></a> : <span class="id" title="keyword">∀</span> {<span class="id" title="var">T</span>}, <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#T"><span class="id" title="variable">T</span></a>.<br/>
+<span class="id" title="keyword">Axiom</span> <a name="admit2"><span class="id" title="axiom">admit2</span></a> : <span class="id" title="keyword">∀</span> {<span class="id" title="var">T</span>}, <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#T"><span class="id" title="variable">T</span></a>.<br/>
+<span class="id" title="keyword">Axiom</span> <a name="admit3"><span class="id" title="axiom">admit3</span></a> : <span class="id" title="keyword">∀</span> {<span class="id" title="var">T</span>}, <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#T"><span class="id" title="variable">T</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab2"></a><h2 class="section">Tautologies</h2>
+
+<div class="paragraph"> </div>
+
+ We'll fill in these first few together.  Any ideas for how to to prove something like this? 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="id"><span class="id" title="definition">id</span></a> : <span class="id" title="keyword">∀</span> <span class="id" title="var">A</span>, <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a><br/>
+&nbsp;&nbsp;:= <span class="id" title="keyword">fun</span> <span class="id" title="var">A</span> <span class="id" title="var">pfA</span> ⇒ <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#pfA"><span class="id" title="variable">pfA</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We can also write the colon on a line of its own; I set up this file in this way so that I can use a large font in my presentation. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="modus_ponens"><span class="id" title="definition">modus_ponens</span></a><br/>
+: <span class="id" title="keyword">∀</span> <span class="id" title="var">P</span> <span class="id" title="var">Q</span>, <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">(</span></a><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#P"><span class="id" title="variable">P</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#Q"><span class="id" title="variable">Q</span></a><a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">)</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#P"><span class="id" title="variable">P</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#Q"><span class="id" title="variable">Q</span></a><br/>
+&nbsp;&nbsp;:= <span class="id" title="keyword">fun</span> <span class="id" title="var">P</span> <span class="id" title="var">Q</span> <span class="id" title="var">P_implies_Q</span> <span class="id" title="var">pfP</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⇒ <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#P_implies_Q"><span class="id" title="variable">P_implies_Q</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#pfP"><span class="id" title="variable">pfP</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+N.B. <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a></span> <span class="inlinecode">→</span> <span class="inlinecode">(<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#B"><span class="id" title="variable">B</span></a></span> <span class="inlinecode">→</span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#C"><span class="id" title="variable">C</span></a>)</span> and <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a></span> <span class="inlinecode">→</span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#B"><span class="id" title="variable">B</span></a></span> <span class="inlinecode">→</span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#C"><span class="id" title="variable">C</span></a></span> are the same; <span class="inlinecode">→</span> associates to the right. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="first_argument"><span class="id" title="definition">first_argument</span></a><br/>
+: <span class="id" title="keyword">∀</span> <span class="id" title="var">A</span> <span class="id" title="var">B</span>, <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">(</span></a><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#B"><span class="id" title="variable">B</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a><a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">)</span></a><br/>
+&nbsp;&nbsp;:= <span class="id" title="keyword">fun</span> <span class="id" title="var">A</span> <span class="id" title="var">B</span> <span class="id" title="var">pfA</span> <span class="id" title="var">pfB</span> ⇒ <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#pfA"><span class="id" title="variable">pfA</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="first_argument'"><span class="id" title="definition">first_argument'</span></a><br/>
+: <span class="id" title="keyword">∀</span> <span class="id" title="var">A</span> <span class="id" title="var">B</span>, <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">(</span></a><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#B"><span class="id" title="variable">B</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a><a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">)</span></a><br/>
+&nbsp;&nbsp;:= <span class="id" title="keyword">fun</span> <span class="id" title="var">A</span> <span class="id" title="var">B</span> <span class="id" title="var">pfA</span> ⇒ (<span class="id" title="keyword">fun</span> <span class="id" title="var">pfB</span> ⇒ <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#pfA"><span class="id" title="variable">pfA</span></a>).<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="compose"><span class="id" title="definition">compose</span></a><br/>
+: <span class="id" title="keyword">∀</span> <span class="id" title="var">A</span> <span class="id" title="var">B</span> <span class="id" title="var">C</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">(</span></a><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#B"><span class="id" title="variable">B</span></a><a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">)</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">(</span></a><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#B"><span class="id" title="variable">B</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#C"><span class="id" title="variable">C</span></a><a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">)</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">(</span></a><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#C"><span class="id" title="variable">C</span></a><a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">)</span></a><br/>
+&nbsp;&nbsp;:= <span class="id" title="keyword">fun</span> <span class="id" title="var">A</span> <span class="id" title="var">B</span> <span class="id" title="var">C</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">A_implies_B</span> <span class="id" title="var">B_implies_C</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">pfA</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⇒ <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#B_implies_C"><span class="id" title="variable">B_implies_C</span></a> (<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A_implies_B"><span class="id" title="variable">A_implies_B</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#pfA"><span class="id" title="variable">pfA</span></a>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We can also fill in the functions bit by bit, as follows: 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="compose'"><span class="id" title="definition">compose'</span></a><br/>
+: <span class="id" title="keyword">∀</span> <span class="id" title="var">A</span> <span class="id" title="var">B</span> <span class="id" title="var">C</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">(</span></a><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#B"><span class="id" title="variable">B</span></a><a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">)</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">(</span></a><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#B"><span class="id" title="variable">B</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#C"><span class="id" title="variable">C</span></a><a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">)</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">(</span></a><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#C"><span class="id" title="variable">C</span></a><a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">)</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">refine</span> (<span class="id" title="keyword">fun</span> <span class="id" title="var">A</span> <span class="id" title="var">B</span> <span class="id" title="var">C</span> ⇒ <span class="id" title="var">_</span>).<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">refine</span> (<span class="id" title="keyword">fun</span> <span class="id" title="var">A_implies_B</span> <span class="id" title="var">B_implies_C</span> ⇒ <span class="id" title="var">_</span>).<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">refine</span> (<span class="id" title="keyword">fun</span> <span class="id" title="var">pfA</span> ⇒ <span class="id" title="var">_</span>).<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">refine</span> (<span class="id" title="var">B_implies_C</span> <span class="id" title="var">_</span>).<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">refine</span> (<span class="id" title="var">A_implies_B</span> <span class="id" title="var">_</span>).<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">refine</span> <span class="id" title="var">pfA</span>.<br/>
+<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+These two are exercises to do individually or with the people sitting next to you. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="introduce_intermediate"><span class="id" title="definition">introduce_intermediate</span></a><br/>
+: <span class="id" title="keyword">∀</span> <span class="id" title="var">A</span> <span class="id" title="var">B</span> <span class="id" title="var">C</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">(</span></a><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">(</span></a><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#B"><span class="id" title="variable">B</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#C"><span class="id" title="variable">C</span></a><a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">))</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">((</span></a><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#B"><span class="id" title="variable">B</span></a><a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">)</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">(</span></a><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#C"><span class="id" title="variable">C</span></a><a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">))</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">refine</span> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="swap_args"><span class="id" title="definition">swap_args</span></a><br/>
+: <span class="id" title="keyword">∀</span> <span class="id" title="var">A</span> <span class="id" title="var">B</span> <span class="id" title="var">C</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">(</span></a><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#B"><span class="id" title="variable">B</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#C"><span class="id" title="variable">C</span></a><a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">)</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">(</span></a><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#B"><span class="id" title="variable">B</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#C"><span class="id" title="variable">C</span></a><a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">)</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Optional Homework Problems for More Practice 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="second_argument"><span class="id" title="definition">second_argument</span></a><br/>
+: <span class="id" title="keyword">∀</span> <span class="id" title="var">A</span> <span class="id" title="var">B</span>, <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#B"><span class="id" title="variable">B</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#B"><span class="id" title="variable">B</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="id_either"><span class="id" title="definition">id_either</span></a><br/>
+: <span class="id" title="keyword">∀</span> <span class="id" title="var">A</span>, <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="third_argument"><span class="id" title="definition">third_argument</span></a><br/>
+: <span class="id" title="keyword">∀</span> <span class="id" title="var">A</span> <span class="id" title="var">B</span> <span class="id" title="var">C</span>, <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#B"><span class="id" title="variable">B</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#C"><span class="id" title="variable">C</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#C"><span class="id" title="variable">C</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+This one is a bit different; one of the arguments has a <span class="inlinecode"><span class="id" title="keyword">∀</span></span> 
+</div>
+<div class="code">
+<span class="id" title="keyword">Definition</span> <a name="explode"><span class="id" title="definition">explode</span></a><br/>
+: <span class="id" title="keyword">∀</span> <span class="id" title="var">A</span> <span class="id" title="var">B</span> <span class="id" title="var">F</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">(</span></a><span class="id" title="keyword">∀</span> <span class="id" title="var">C</span>, <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#F"><span class="id" title="variable">F</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#C"><span class="id" title="variable">C</span></a><a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">)</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">(</span></a><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#F"><span class="id" title="variable">F</span></a><a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">)</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">(</span></a><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#B"><span class="id" title="variable">B</span></a><a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">)</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Challenge Homework Problems 
+<div class="paragraph"> </div>
+
+ Come ask me about disjunction and negation during TAU if you are interested in playing with these. 
+<div class="paragraph"> </div>
+
+ Prove that the Law of Excluded Middle implies Double Negation Elimination 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="LEM_implies_DNE"><span class="id" title="definition">LEM_implies_DNE</span></a><br/>
+: <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">(</span></a><span class="id" title="keyword">∀</span> <span class="id" title="var">P</span>, <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#P"><span class="id" title="variable">P</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#7a45dffb109c3069e5c675be68643e60"><span class="id" title="notation">∨</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#611abc97cba304de784fa909dbdea1fa"><span class="id" title="notation">¬</span></a><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#P"><span class="id" title="variable">P</span></a><a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">)</span></a><br/>
+&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">(</span></a><span class="id" title="keyword">∀</span> <span class="id" title="var">P</span>, <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#611abc97cba304de784fa909dbdea1fa"><span class="id" title="notation">~~</span></a><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#P"><span class="id" title="variable">P</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#P"><span class="id" title="variable">P</span></a><a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">)</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Prove that Double Negation Elimination implies Peirce's Law 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="DNE_implies_Peirce"><span class="id" title="definition">DNE_implies_Peirce</span></a><br/>
+: <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">(</span></a><span class="id" title="keyword">∀</span> <span class="id" title="var">P</span>, <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#611abc97cba304de784fa909dbdea1fa"><span class="id" title="notation">~~</span></a><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#P"><span class="id" title="variable">P</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#P"><span class="id" title="variable">P</span></a><a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">)</span></a><br/>
+&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">(</span></a><span class="id" title="keyword">∀</span> <span class="id" title="var">P</span> <span class="id" title="var">Q</span> : <span class="id" title="keyword">Prop</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">((</span></a><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#P"><span class="id" title="variable">P</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#Q"><span class="id" title="variable">Q</span></a><a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">)</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#P"><span class="id" title="variable">P</span></a><a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">)</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#P"><span class="id" title="variable">P</span></a><a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">)</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Prove that Peirce's Law implies the Law of Excluded Middle 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="Peirce_implies_LEM"><span class="id" title="definition">Peirce_implies_LEM</span></a><br/>
+: <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">(</span></a><span class="id" title="keyword">∀</span> <span class="id" title="var">P</span> <span class="id" title="var">Q</span> : <span class="id" title="keyword">Prop</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">((</span></a><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#P"><span class="id" title="variable">P</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#Q"><span class="id" title="variable">Q</span></a><a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">)</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#P"><span class="id" title="variable">P</span></a><a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">)</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#P"><span class="id" title="variable">P</span></a><a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">)</span></a><br/>
+&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">(</span></a><span class="id" title="keyword">∀</span> <span class="id" title="var">P</span>, <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#P"><span class="id" title="variable">P</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#7a45dffb109c3069e5c675be68643e60"><span class="id" title="notation">∨</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#611abc97cba304de784fa909dbdea1fa"><span class="id" title="notation">¬</span></a><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#P"><span class="id" title="variable">P</span></a><a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">)</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab3"></a><h2 class="section">Judgmental equality.</h2>
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">About</span> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#eq_refl"><span class="id" title="constructor">eq_refl</span></a>.<br/>
+<span class="id" title="keyword">About</span> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#eq"><span class="id" title="inductive">eq</span></a>.<br/>
+<span class="id" title="keyword">Print</span> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#eq"><span class="id" title="inductive">eq</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We allow writing <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a></span> for <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#eq_refl"><span class="id" title="constructor">eq_refl</span></a></span>. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Notation</span> <a name="refl"><span class="id" title="abbreviation">refl</span></a> := <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#eq_refl"><span class="id" title="constructor">eq_refl</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Interesting question: Are all proofs of equality themselves equal? Keep this in the back of your mind as we define what equality is. To do this we need to define two notions of equality: judgmental, and propositional.  
+<div class="paragraph"> </div>
+
+ Coq knows some things about equality.  If Coq judges that two things are equal (and equally trivially), then you can prove them (propositionally) equal by reflexivity, with <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a></span>.  In this case, we say that they are also judgmentally equal.  For example: 
+<div class="paragraph"> </div>
+
+ Propositional equality is denoted as <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a></span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a></span>. 
+<div class="paragraph"> </div>
+
+ Definition of judgmental equality, version 1: intuitively, <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a></span> and <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a></span> are judgmentally equal if there is a really stupid, trivial proof that <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a></span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a></span>. 
+<div class="paragraph"> </div>
+
+ Definition of judgmental equality, version 2: <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a></span> and <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a></span> are judgmentally equal if (Coq says that) <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a></span> proves <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a></span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a></span>. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="one_plus_one_equals_two"><span class="id" title="definition">one_plus_one_equals_two</span></a><br/>
+: 1 <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Peano.html#b3eea360671e1b32b18a26e15b3aace3"><span class="id" title="notation">+</span></a> 1 <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> 2<br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="two_plus_two_equals_four"><span class="id" title="definition">two_plus_two_equals_four</span></a><br/>
+: 2 <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Peano.html#b3eea360671e1b32b18a26e15b3aace3"><span class="id" title="notation">+</span></a> 2 <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> 4<br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="two_times_three_equals_six"><span class="id" title="definition">two_times_three_equals_six</span></a><br/>
+: 2 <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Peano.html#697e4695610f677ae98a52af81f779d2"><span class="id" title="notation">×</span></a> 3 <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> 6<br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Just so that you don't think Coq believes everything is equal: 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="var">Fail</span> <span class="id" title="keyword">Definition</span> <a name="one_does_not_equal_zero"><span class="id" title="definition">one_does_not_equal_zero</span></a><br/>
+: 1 <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> 0<br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+This gives
+<pre>
+The command has indeed failed with message:
+=&gt; Error: The term "refl" has type "?30 = ?30"
+    while it is expected to have type "1 = 0".
+</pre>
+ 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="var">Fail</span> <span class="id" title="keyword">Definition</span> <a name="addition_is_not_judgmentally_commutative"><span class="id" title="definition">addition_is_not_judgmentally_commutative</span></a><br/>
+: <span class="id" title="keyword">∀</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span>, <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Peano.html#b3eea360671e1b32b18a26e15b3aace3"><span class="id" title="notation">+</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Peano.html#b3eea360671e1b32b18a26e15b3aace3"><span class="id" title="notation">+</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a><br/>
+&nbsp;&nbsp;:= <span class="id" title="keyword">fun</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span> ⇒ <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+You can see the "normal form" of something with <span class="inlinecode"><span class="id" title="keyword">Compute</span></span>: 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Compute</span> 1 <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Peano.html#b3eea360671e1b32b18a26e15b3aace3"><span class="id" title="notation">+</span></a> 1.<br/>
+
+<br/>
+<span class="id" title="keyword">Compute</span> 2 <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Peano.html#b3eea360671e1b32b18a26e15b3aace3"><span class="id" title="notation">+</span></a> 2.<br/>
+
+<br/>
+<span class="id" title="keyword">Compute</span> 2 <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Peano.html#697e4695610f677ae98a52af81f779d2"><span class="id" title="notation">×</span></a> 3.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Definition of judgmental equality, version 3: <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a></span> and <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a></span> are judgmentally equal if <span class="inlinecode"><span class="id" title="keyword">Compute</span></span> gives you the same normal form for <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a></span> and <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a></span>.  N.B.  This is equivalent to what Coq is doing internally. 
+<div class="paragraph"> </div>
+
+ Note that equality is homogeneous; the things you're comparing for equality need to already have the same type.  You can ask if a statement is valid using <span class="inlinecode"><span class="id" title="keyword">Check</span></span>: 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Check</span> 1. 
+<br/>
+<span class="id" title="keyword">Check</span> 1 <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> 1. 
+<br/>
+<span class="id" title="keyword">Check</span> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#true"><span class="id" title="constructor">true</span></a>. 
+<br/>
+<span class="id" title="var">Fail</span> <span class="id" title="keyword">Check</span> 1 <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#true"><span class="id" title="constructor">true</span></a>. 
+<br/>
+</div>
+
+<div class="doc">
+A note on syntax 
+</div>
+<div class="code">
+<span class="id" title="keyword">Definition</span> <a name="id'"><span class="id" title="definition">id'</span></a><br/>
+: <span class="id" title="keyword">∀</span> <span class="id" title="var">A</span>, <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a><br/>
+&nbsp;&nbsp;:= <span class="id" title="keyword">fun</span> <span class="id" title="var">A</span> <span class="id" title="var">pfA</span> ⇒ <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#pfA"><span class="id" title="variable">pfA</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="id''"><span class="id" title="definition">id''</span></a><br/>
+: <span class="id" title="keyword">∀</span> (<span class="id" title="var">A</span> : <span class="id" title="keyword">Type</span>), <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a><br/>
+&nbsp;&nbsp;:= <span class="id" title="keyword">fun</span> <span class="id" title="var">A</span> <span class="id" title="var">pfA</span> ⇒ <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#pfA"><span class="id" title="variable">pfA</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="id'''"><span class="id" title="definition">id'''</span></a><br/>
+: <span class="id" title="keyword">∀</span> (<span class="id" title="var">A</span> : <span class="id" title="keyword">Type</span>) (<span class="id" title="var">pf</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a>), <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a><br/>
+&nbsp;&nbsp;:= <span class="id" title="keyword">fun</span> <span class="id" title="var">A</span> <span class="id" title="var">pfA</span> ⇒ <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#pfA"><span class="id" title="variable">pfA</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Pattern matching is case analysis, on things that are defined by cases (like, <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#bool"><span class="id" title="inductive">bool</span></a></span>, <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a></span>).  This is a technical meaning for "pattern matching" or "case analysis", namely, "using a <span class="inlinecode"><span class="id" title="keyword">match</span></span> <span class="inlinecode">...</span> <span class="inlinecode"><span class="id" title="keyword">with</span></span> <span class="inlinecode">...</span> <span class="inlinecode"><span class="id" title="keyword">end</span></span> statement in Coq". 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="is_positive"><span class="id" title="definition">is_positive</span></a> : <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#bool"><span class="id" title="inductive">bool</span></a><br/>
+&nbsp;&nbsp;:= <span class="id" title="keyword">fun</span> <span class="id" title="var">n</span> ⇒ <span class="id" title="keyword">match</span> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#n"><span class="id" title="variable">n</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 0 ⇒ <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#false"><span class="id" title="constructor">false</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <span class="id" title="var">_</span> ⇒ <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#true"><span class="id" title="constructor">true</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="is_zero"><span class="id" title="definition">is_zero</span></a> : <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#bool"><span class="id" title="inductive">bool</span></a><br/>
+&nbsp;&nbsp;:= <span class="id" title="keyword">fun</span> <span class="id" title="var">n</span> ⇒ <span class="id" title="keyword">match</span> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#n"><span class="id" title="variable">n</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 0 ⇒ <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#true"><span class="id" title="constructor">true</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <span class="id" title="var">_</span> ⇒ <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#false"><span class="id" title="constructor">false</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Compute</span> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#is_zero"><span class="id" title="definition">is_zero</span></a> 0.<br/>
+<span class="id" title="keyword">Compute</span> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#is_zero"><span class="id" title="definition">is_zero</span></a> 1.<br/>
+<span class="id" title="keyword">Compute</span> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#is_positive"><span class="id" title="definition">is_positive</span></a> 42.<br/>
+<span class="id" title="keyword">Compute</span> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#is_positive"><span class="id" title="definition">is_positive</span></a> 20000.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="If_Then_Else"><span class="id" title="definition">If_Then_Else</span></a><br/>
+: <span class="id" title="keyword">∀</span> (<span class="id" title="var">A</span> : <span class="id" title="keyword">Type</span>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="var">b</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#bool"><span class="id" title="inductive">bool</span></a>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="var">true_case</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="var">false_case</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a><br/>
+&nbsp;&nbsp;:= <span class="id" title="keyword">fun</span> <span class="id" title="var">_</span> <span class="id" title="var">b</span> <span class="id" title="var">true_true_case</span> <span class="id" title="var">false_case</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⇒ <span class="id" title="keyword">match</span> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#b"><span class="id" title="variable">b</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#true"><span class="id" title="constructor">true</span></a> ⇒ <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#true_true_case"><span class="id" title="variable">true_true_case</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#false"><span class="id" title="constructor">false</span></a> ⇒ <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#false_case"><span class="id" title="variable">false_case</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Compute</span> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#If_Then_Else"><span class="id" title="definition">If_Then_Else</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#true"><span class="id" title="constructor">true</span></a> 6 7.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#unit"><span class="id" title="inductive">unit</span></a></span> is a type with one element. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Print</span> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#unit"><span class="id" title="inductive">unit</span></a>.<br/>
+</div>
+
+<div class="doc">
+But <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a></span> does not prove that all units are equal. 
+</div>
+<div class="code">
+<span class="id" title="var">Fail</span> <span class="id" title="keyword">Definition</span> <a name="all_units_equal"><span class="id" title="definition">all_units_equal</span></a><br/>
+: <span class="id" title="keyword">∀</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#unit"><span class="id" title="inductive">unit</span></a>, <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a><br/>
+&nbsp;&nbsp;:= <span class="id" title="keyword">fun</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span> ⇒ <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a>.<br/>
+</div>
+
+<div class="doc">
+But we can pattern match 
+</div>
+<div class="code">
+<span class="id" title="keyword">Definition</span> <a name="all_units_equal"><span class="id" title="definition">all_units_equal</span></a> : <span class="id" title="keyword">∀</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#unit"><span class="id" title="inductive">unit</span></a>, <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">refine</span> (<span class="id" title="keyword">fun</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⇒ <span class="id" title="keyword">match</span> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#tt"><span class="id" title="constructor">tt</span></a> ⇒ <span class="id" title="var">_</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span>).<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">refine</span> (<span class="id" title="keyword">match</span> <span class="id" title="var">y</span> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#tt"><span class="id" title="constructor">tt</span></a> ⇒ <span class="id" title="var">_</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span>).<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">refine</span> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a>.<br/>
+<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Optional Homework for More Practice 
+<div class="paragraph"> </div>
+
+ This should send <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#true"><span class="id" title="constructor">true</span></a></span> to <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#false"><span class="id" title="constructor">false</span></a></span>, and <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#false"><span class="id" title="constructor">false</span></a></span> to <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#true"><span class="id" title="constructor">true</span></a></span>. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Definition</span> <a name="boolean_negation"><span class="id" title="definition">boolean_negation</span></a> : <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#bool"><span class="id" title="inductive">bool</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#bool"><span class="id" title="inductive">bool</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+This should implement the truth table for "and":
+<pre>
+  A B │ A ∧ B
+  ────┼──────
+  T T │   T
+  T F │   F
+  F T │   F
+  F F │   F
+</pre>
+ 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="boolean_conjunction"><span class="id" title="definition">boolean_conjunction</span></a><br/>
+: <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#bool"><span class="id" title="inductive">bool</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#bool"><span class="id" title="inductive">bool</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#bool"><span class="id" title="inductive">bool</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+This should implement the truth table for "or":
+<pre>
+  A B │ A ∨ B
+  ────┼──────
+  T T │   T
+  T F │   T
+  F T │   T
+  F F │   F
+</pre>
+ 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="boolean_disjunction"><span class="id" title="definition">boolean_disjunction</span></a><br/>
+: <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#bool"><span class="id" title="inductive">bool</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#bool"><span class="id" title="inductive">bool</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#bool"><span class="id" title="inductive">bool</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+This should implement the truth table for "xor":
+<pre>
+  A B │ A ⊕ B
+  ────┼──────
+  T T │   F
+  T F │   T
+  F T │   T
+  F F │   F
+</pre>
+ 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="boolean_exclusive_or"><span class="id" title="definition">boolean_exclusive_or</span></a><br/>
+: <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#bool"><span class="id" title="inductive">bool</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#bool"><span class="id" title="inductive">bool</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#bool"><span class="id" title="inductive">bool</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+This should implement the truth table for "implication":
+<pre>
+  A B │ A → B
+  ────┼──────
+  T T │   T
+  T F │   F
+  F T │   T
+  F F │   T
+</pre>
+ 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="boolean_implication"><span class="id" title="definition">boolean_implication</span></a><br/>
+: <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#bool"><span class="id" title="inductive">bool</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#bool"><span class="id" title="inductive">bool</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#bool"><span class="id" title="inductive">bool</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+This should implement the truth table for "biconditional":
+<pre>
+  A B │ A ↔ B
+  ────┼──────
+  T T │   T
+  T F │   F
+  F T │   F
+  F F │   T
+</pre>
+ 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="boolean_biconditional"><span class="id" title="definition">boolean_biconditional</span></a><br/>
+: <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#bool"><span class="id" title="inductive">bool</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#bool"><span class="id" title="inductive">bool</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Datatypes.html#bool"><span class="id" title="inductive">bool</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Recall: Are all proofs of equality themselves equal?  Here we define what equality is, i.e., how to use it. 
+<div class="paragraph"> </div>
+
+ We can prove the J-rule by pattern matching.  
+<div class="paragraph"> </div>
+
+ We start off with the simpler version, called the "non-dependent" version. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="J_nondep"><span class="id" title="definition">J_nondep</span></a><br/>
+: <span class="id" title="keyword">∀</span> (<span class="id" title="var">A</span> : <span class="id" title="keyword">Type</span>) (<span class="id" title="var">x</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a>) (<span class="id" title="var">y</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="var">H</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="var">P</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Type</span>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#P"><span class="id" title="variable">P</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#P"><span class="id" title="variable">P</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+If you want to not always have to pass all of the arguments to <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#J"><span class="id" title="definition">J</span></a></span> explicitly, you can uncomment the following lines, removing the <tt>and </tt>, to make <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a></span>, <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a></span>, and <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a></span> be inferred automatically. 
+<div class="paragraph"> </div>
+
+<pre>
+Arguments J_nondep {A} {x} {y} H P _.
+</pre>
+ 
+<div class="paragraph"> </div>
+
+ Recall the blackboard proof of symmetry, that <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a></span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a></span> <span class="inlinecode">→</span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a></span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a></span>. Someone remind me how it goes. 
+<div class="paragraph"> </div>
+
+ First prove this by passing arguments to <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#J_nondep"><span class="id" title="definition">J_nondep</span></a></span>. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="sym_J"><span class="id" title="definition">sym_J</span></a><br/>
+: <span class="id" title="keyword">∀</span> <span class="id" title="var">A</span> (<span class="id" title="var">x</span> <span class="id" title="var">y</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a>), <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+<span class="id" title="var">Arguments</span> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#sym_J"><span class="id" title="definition">sym_J</span></a> {<span class="id" title="var">A</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span>} <span class="id" title="var">p</span>, <span class="id" title="var">A</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span> <span class="id" title="var">p</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Now prove this by pattern matching. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="sym"><span class="id" title="definition">sym</span></a><br/>
+: <span class="id" title="keyword">∀</span> <span class="id" title="var">A</span> (<span class="id" title="var">x</span> <span class="id" title="var">y</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a>), <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We allow writing <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#sym"><span class="id" title="definition">sym</span></a></span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#p"><span class="id" title="variable">p</span></a></span> to mean <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#sym"><span class="id" title="definition">sym</span></a></span> <span class="inlinecode"><span class="id" title="var">_</span></span> <span class="inlinecode"><span class="id" title="var">_</span></span> <span class="inlinecode"><span class="id" title="var">_</span></span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#p"><span class="id" title="variable">p</span></a></span> 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="var">Arguments</span> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#sym"><span class="id" title="definition">sym</span></a> {<span class="id" title="var">A</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span>} <span class="id" title="var">p</span>, <span class="id" title="var">A</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span> <span class="id" title="var">p</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+First prove this by passing arguments to <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#J_nondep"><span class="id" title="definition">J_nondep</span></a></span>. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="trans_J"><span class="id" title="definition">trans_J</span></a><br/>
+: <span class="id" title="keyword">∀</span> <span class="id" title="var">A</span> (<span class="id" title="var">x</span> <span class="id" title="var">y</span> <span class="id" title="var">z</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#z"><span class="id" title="variable">z</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#z"><span class="id" title="variable">z</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+<span class="id" title="var">Arguments</span> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#trans_J"><span class="id" title="definition">trans_J</span></a> {<span class="id" title="var">A</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span> <span class="id" title="var">z</span>} <span class="id" title="var">p</span> <span class="id" title="var">q</span>, <span class="id" title="var">A</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span> <span class="id" title="var">z</span> <span class="id" title="var">p</span> <span class="id" title="var">q</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Now prove this by pattern matching. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="trans"><span class="id" title="definition">trans</span></a><br/>
+: <span class="id" title="keyword">∀</span> <span class="id" title="var">A</span> (<span class="id" title="var">x</span> <span class="id" title="var">y</span> <span class="id" title="var">z</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#z"><span class="id" title="variable">z</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#z"><span class="id" title="variable">z</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+<span class="id" title="var">Arguments</span> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#trans"><span class="id" title="definition">trans</span></a> {<span class="id" title="var">A</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span> <span class="id" title="var">z</span>} <span class="id" title="var">p</span> <span class="id" title="var">q</span>, <span class="id" title="var">A</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span> <span class="id" title="var">z</span> <span class="id" title="var">p</span> <span class="id" title="var">q</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+First prove this by passing arguments to <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#J_nondep"><span class="id" title="definition">J_nondep</span></a></span>. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="ap_J"><span class="id" title="definition">ap_J</span></a><br/>
+: <span class="id" title="keyword">∀</span> <span class="id" title="var">A</span> <span class="id" title="var">B</span> (<span class="id" title="var">f</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#B"><span class="id" title="variable">B</span></a>) (<span class="id" title="var">x</span> <span class="id" title="var">y</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#f"><span class="id" title="variable">f</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#f"><span class="id" title="variable">f</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+<span class="id" title="var">Arguments</span> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#ap_J"><span class="id" title="definition">ap_J</span></a> {<span class="id" title="var">A</span> <span class="id" title="var">B</span>} <span class="id" title="var">f</span> {<span class="id" title="var">x</span> <span class="id" title="var">y</span>} <span class="id" title="var">p</span>, {<span class="id" title="var">A</span> <span class="id" title="var">B</span>} <span class="id" title="var">f</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span> <span class="id" title="var">p</span>, <span class="id" title="var">A</span> <span class="id" title="var">B</span> <span class="id" title="var">f</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span> <span class="id" title="var">p</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+First prove this by pattern matching. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="ap"><span class="id" title="definition">ap</span></a><br/>
+: <span class="id" title="keyword">∀</span> <span class="id" title="var">A</span> <span class="id" title="var">B</span> (<span class="id" title="var">f</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#B"><span class="id" title="variable">B</span></a>) (<span class="id" title="var">x</span> <span class="id" title="var">y</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#f"><span class="id" title="variable">f</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#f"><span class="id" title="variable">f</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+<span class="id" title="var">Arguments</span> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#ap"><span class="id" title="definition">ap</span></a> {<span class="id" title="var">A</span> <span class="id" title="var">B</span>} <span class="id" title="var">f</span> {<span class="id" title="var">x</span> <span class="id" title="var">y</span>} <span class="id" title="var">p</span>, {<span class="id" title="var">A</span> <span class="id" title="var">B</span>} <span class="id" title="var">f</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span> <span class="id" title="var">p</span>, <span class="id" title="var">A</span> <span class="id" title="var">B</span> <span class="id" title="var">f</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span> <span class="id" title="var">p</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Now the version with more bells and whistles, again provable by pattern matching. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="J"><span class="id" title="definition">J</span></a><br/>
+: <span class="id" title="keyword">∀</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="var">A</span> : <span class="id" title="keyword">Type</span>) (<span class="id" title="var">x</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a>) (<span class="id" title="var">y</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="var">H</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="var">P</span> : <span class="id" title="keyword">∀</span> (<span class="id" title="var">y'</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="var">H'</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y'"><span class="id" title="variable">y'</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">Type</span>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#P"><span class="id" title="variable">P</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#P"><span class="id" title="variable">P</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H"><span class="id" title="variable">H</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#J"><span class="id" title="definition">J</span></a></span> also has a computation rule, which holds judgmentally.  We start with the rule for <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#J_nondep"><span class="id" title="definition">J_nondep</span></a></span>. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="J_nondep_computes"><span class="id" title="definition">J_nondep_computes</span></a><br/>
+: <span class="id" title="keyword">∀</span> (<span class="id" title="var">A</span> : <span class="id" title="keyword">Type</span>) (<span class="id" title="var">x</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="var">P</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Type</span>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="var">k</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#P"><span class="id" title="variable">P</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#J_nondep"><span class="id" title="definition">J_nondep</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#P"><span class="id" title="variable">P</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#k"><span class="id" title="variable">k</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#k"><span class="id" title="variable">k</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="J_computes"><span class="id" title="definition">J_computes</span></a><br/>
+: <span class="id" title="keyword">∀</span> (<span class="id" title="var">A</span> : <span class="id" title="keyword">Type</span>) (<span class="id" title="var">x</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="var">P</span> : <span class="id" title="keyword">∀</span> (<span class="id" title="var">y'</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a>) (<span class="id" title="var">H'</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y'"><span class="id" title="variable">y'</span></a>), <span class="id" title="keyword">Type</span>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="var">k</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#P"><span class="id" title="variable">P</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#J"><span class="id" title="definition">J</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#P"><span class="id" title="variable">P</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#k"><span class="id" title="variable">k</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#k"><span class="id" title="variable">k</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+If you want to not always have to pass all of the arguments to <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#J"><span class="id" title="definition">J</span></a></span> explicitly, you can uncomment the following lines, removing the <tt>and </tt>, to make <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a></span>, <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a></span>, and <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a></span> be inferred automatically. 
+<div class="paragraph"> </div>
+
+<pre>
+Arguments J {A} {x} {y} H P _.
+Arguments J_computes {A x} P k.
+Arguments J_non_computes {A x} P k.
+</pre>
+ 
+<div class="paragraph"> </div>
+
+ First prove this by passing arguments to <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#J"><span class="id" title="definition">J</span></a></span>. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="trans_pV_J"><span class="id" title="definition">trans_pV_J</span></a><br/>
+: <span class="id" title="keyword">∀</span> <span class="id" title="var">A</span> (<span class="id" title="var">x</span> <span class="id" title="var">y</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a>) (<span class="id" title="var">H</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#trans_J"><span class="id" title="definition">trans_J</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H"><span class="id" title="variable">H</span></a> (<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#sym_J"><span class="id" title="definition">sym_J</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H"><span class="id" title="variable">H</span></a>) <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Now prove this by pattern matching. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="trans_pV"><span class="id" title="definition">trans_pV</span></a> : <span class="id" title="keyword">∀</span> <span class="id" title="var">A</span> (<span class="id" title="var">x</span> <span class="id" title="var">y</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a>) (<span class="id" title="var">p</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#trans"><span class="id" title="definition">trans</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#p"><span class="id" title="variable">p</span></a> (<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#sym"><span class="id" title="definition">sym</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#p"><span class="id" title="variable">p</span></a>) <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Exercises to do individually, or with the people next to you. 
+<div class="paragraph"> </div>
+
+ First prove this by filling in arguments to <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#J"><span class="id" title="definition">J</span></a></span> explicitly. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="sym_sym_J"><span class="id" title="definition">sym_sym_J</span></a><br/>
+: <span class="id" title="keyword">∀</span> <span class="id" title="var">A</span> (<span class="id" title="var">x</span> <span class="id" title="var">y</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a>) (<span class="id" title="var">H</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#sym_J"><span class="id" title="definition">sym_J</span></a> (<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#sym_J"><span class="id" title="definition">sym_J</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H"><span class="id" title="variable">H</span></a>) <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H"><span class="id" title="variable">H</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+<span class="id" title="var">Arguments</span> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#sym_sym_J"><span class="id" title="definition">sym_sym_J</span></a> {<span class="id" title="var">A</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span>} <span class="id" title="var">H</span>, <span class="id" title="var">A</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span> <span class="id" title="var">H</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Now prove this by pattern matching. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="sym_sym"><span class="id" title="definition">sym_sym</span></a><br/>
+: <span class="id" title="keyword">∀</span> <span class="id" title="var">A</span> (<span class="id" title="var">x</span> <span class="id" title="var">y</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a>) (<span class="id" title="var">H</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#sym"><span class="id" title="definition">sym</span></a> (<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#sym"><span class="id" title="definition">sym</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H"><span class="id" title="variable">H</span></a>) <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H"><span class="id" title="variable">H</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+<span class="id" title="var">Arguments</span> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#sym_sym"><span class="id" title="definition">sym_sym</span></a> {<span class="id" title="var">A</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span>} <span class="id" title="var">H</span>, <span class="id" title="var">A</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span> <span class="id" title="var">H</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="trans_1p_J"><span class="id" title="definition">trans_1p_J</span></a><br/>
+: <span class="id" title="keyword">∀</span> <span class="id" title="var">A</span> (<span class="id" title="var">x</span> <span class="id" title="var">y</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a>) (<span class="id" title="var">H</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#trans_J"><span class="id" title="definition">trans_J</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H"><span class="id" title="variable">H</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H"><span class="id" title="variable">H</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="trans_1p"><span class="id" title="definition">trans_1p</span></a><br/>
+: <span class="id" title="keyword">∀</span> <span class="id" title="var">A</span> (<span class="id" title="var">x</span> <span class="id" title="var">y</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a>) (<span class="id" title="var">H</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#trans"><span class="id" title="definition">trans</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H"><span class="id" title="variable">H</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H"><span class="id" title="variable">H</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="trans_p1_J"><span class="id" title="definition">trans_p1_J</span></a><br/>
+: <span class="id" title="keyword">∀</span> <span class="id" title="var">A</span> (<span class="id" title="var">x</span> <span class="id" title="var">y</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a>) (<span class="id" title="var">H</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#trans_J"><span class="id" title="definition">trans_J</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H"><span class="id" title="variable">H</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H"><span class="id" title="variable">H</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="trans_p1"><span class="id" title="definition">trans_p1</span></a><br/>
+: <span class="id" title="keyword">∀</span> <span class="id" title="var">A</span> (<span class="id" title="var">x</span> <span class="id" title="var">y</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a>) (<span class="id" title="var">H</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#trans"><span class="id" title="definition">trans</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H"><span class="id" title="variable">H</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H"><span class="id" title="variable">H</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="sym_refl_J"><span class="id" title="definition">sym_refl_J</span></a><br/>
+: <span class="id" title="keyword">∀</span> <span class="id" title="var">A</span> (<span class="id" title="var">x</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#sym_J"><span class="id" title="definition">sym_J</span></a> (<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a>) <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="sym_refl"><span class="id" title="definition">sym_refl</span></a><br/>
+: <span class="id" title="keyword">∀</span> <span class="id" title="var">A</span> (<span class="id" title="var">x</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#sym"><span class="id" title="definition">sym</span></a> (<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a>) <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Recall the informal proof from yesterday's homework, which "proved" that all proofs of <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a></span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a></span> are themselves equal:
+
+<div class="paragraph"> </div>
+
+  The <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#J"><span class="id" title="definition">J</span></a></span> rule says informally that if you have a proof <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#p"><span class="id" title="variable">p</span></a></span> of <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a></span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a></span>, it suffices to assume that <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a></span> <i>is</i> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a></span> (to substitute <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a></span> for <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a></span> in what you are trying to prove), and to assume that <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#p"><span class="id" title="variable">p</span></a></span> is <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a></span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a></span> (to substitute <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a></span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a></span> for <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#p"><span class="id" title="variable">p</span></a></span> in what you are trying to prove).  Suppose we have a type <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a></span>, two inhabitants <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a></span> and <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a></span> of type <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a></span>, and two proofs <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#p"><span class="id" title="variable">p</span></a></span> and <span class="inlinecode"><span class="id" title="var">q</span></span> that <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a></span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a></span>.  By <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#J"><span class="id" title="definition">J</span></a></span>, it suffices to assume that <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a></span> is <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a></span>, that <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#p"><span class="id" title="variable">p</span></a></span> is <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a></span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a></span>, and hence it suffices to prove that <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a></span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">q</span></span>, where <span class="inlinecode"><span class="id" title="var">q</span></span> now has type <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a></span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a></span>.  To prove this, again by <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#J"><span class="id" title="definition">J</span></a></span>, it suffices to assume that <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a></span> is <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a></span> (it already is) and that <span class="inlinecode"><span class="id" title="var">q</span></span> is <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a></span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a></span>, and hence it suffices to prove <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a></span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a></span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a></span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a></span>.  We can prove this by <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a></span> <span class="inlinecode">(<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a></span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a>)</span>.  Thus for any proofs <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#p"><span class="id" title="variable">p</span></a></span> and <span class="inlinecode"><span class="id" title="var">q</span></span> that <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a></span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a></span>, we have <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#p"><span class="id" title="variable">p</span></a></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">q</span></span>.  Qed.
+
+<div class="paragraph"> </div>
+
+  Try to formalize this proof in Coq, and see what goes wrong.  It may help to use <span class="inlinecode"><span class="id" title="tactic">refine</span></span> so that you can construct the proof sentence by sentence.  If you are having trouble figuring out how to instantiate <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#J"><span class="id" title="definition">J</span></a></span> for a proof of equality <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H"><span class="id" title="variable">H</span></a></span> <span class="inlinecode">:</span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a></span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a></span>, you can ask Coq to figure it out for you by running <span class="inlinecode"><span class="id" title="tactic">destruct</span></span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H"><span class="id" title="variable">H</span></a>.</span>.  You can see what it did by typing <span class="inlinecode"><span class="id" title="keyword">Show</span></span> <span class="inlinecode"><span class="id" title="keyword">Proof</span>.</span> afterwards. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="J_implies_UIP"><span class="id" title="definition">J_implies_UIP</span></a><br/>
+: <span class="id" title="keyword">∀</span> <span class="id" title="var">A</span> (<span class="id" title="var">x</span> <span class="id" title="var">y</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a>) (<span class="id" title="var">H0</span> <span class="id" title="var">H1</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a>), <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H0"><span class="id" title="variable">H0</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H1"><span class="id" title="variable">H1</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">refine</span> <span class="id" title="var">_</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">refine</span> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+<span class="id" title="keyword">Abort</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The rest of these are explicitly Homework; feel free to take a break now, or to keep going. 
+<div class="paragraph"> </div>
+
+ Recall from yesterday's homework that the <span class="inlinecode"><span class="id" title="var">K</span></span> rule says: 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="K_rule_type"><span class="id" title="definition">K_rule_type</span></a><br/>
+&nbsp;&nbsp;:= <span class="id" title="keyword">∀</span> <span class="id" title="var">A</span> (<span class="id" title="var">x</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a>) (<span class="id" title="var">H</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a>) (<span class="id" title="var">P</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Type</span>), <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#P"><span class="id" title="variable">P</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#P"><span class="id" title="variable">P</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H"><span class="id" title="variable">H</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Prove that <span class="inlinecode"><span class="id" title="var">K</span></span> implies uniqueness of identity proofs.  If you do this interactively with <span class="inlinecode"><span class="id" title="tactic">refine</span></span>, you may find it useful to <span class="inlinecode"><span class="id" title="tactic">unfold</span></span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#K_rule_type"><span class="id" title="definition">K_rule_type</span></a></span> <span class="inlinecode"><span class="id" title="keyword">in</span></span> <span class="inlinecode">×</span> to see the definition of <span class="inlinecode"><span class="id" title="var">K</span></span> in your goals window. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="K_implies_UIP"><span class="id" title="definition">K_implies_UIP</span></a><br/>
+: <span class="id" title="keyword">∀</span> (<span class="id" title="var">K</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#K_rule_type"><span class="id" title="definition">K_rule_type</span></a>) <span class="id" title="var">A</span> (<span class="id" title="var">x</span> <span class="id" title="var">y</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a>) (<span class="id" title="var">H0</span> <span class="id" title="var">H1</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a>), <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H0"><span class="id" title="variable">H0</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H1"><span class="id" title="variable">H1</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Note that it's impossible to prove <span class="inlinecode"><span class="id" title="var">K</span></span> from <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#J"><span class="id" title="definition">J</span></a></span>.  See if you can get any insight into this by attempting to construct a proof.
+
+<div class="paragraph"> </div>
+
+  Hint: Think about what these things (and UIP) mean in the paths interpretation of equality, and remember that <i>all</i> of our functions are continuous. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="J_implies_K"><span class="id" title="definition">J_implies_K</span></a> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#K_rule_type"><span class="id" title="definition">K_rule_type</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Can you write down three "different" proofs of transitivity (they should all be judgmentally different; <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a></span> should not prove any two of them the same. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="trans1"><span class="id" title="definition">trans1</span></a><br/>
+: <span class="id" title="keyword">∀</span> <span class="id" title="var">A</span> (<span class="id" title="var">x</span> <span class="id" title="var">y</span> <span class="id" title="var">z</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#z"><span class="id" title="variable">z</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#z"><span class="id" title="variable">z</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit1"><span class="id" title="axiom">admit1</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a name="trans2"><span class="id" title="definition">trans2</span></a><br/>
+: <span class="id" title="keyword">∀</span> <span class="id" title="var">A</span> (<span class="id" title="var">x</span> <span class="id" title="var">y</span> <span class="id" title="var">z</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#z"><span class="id" title="variable">z</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#z"><span class="id" title="variable">z</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit2"><span class="id" title="axiom">admit2</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a name="trans3"><span class="id" title="definition">trans3</span></a><br/>
+: <span class="id" title="keyword">∀</span> <span class="id" title="var">A</span> (<span class="id" title="var">x</span> <span class="id" title="var">y</span> <span class="id" title="var">z</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#z"><span class="id" title="variable">z</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#z"><span class="id" title="variable">z</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit3"><span class="id" title="axiom">admit3</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Now we have Coq check that they are not the same; these lines should compile unmodified. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="var">Fail</span> <span class="id" title="keyword">Check</span> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#trans1"><span class="id" title="definition">trans1</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#trans2"><span class="id" title="definition">trans2</span></a>.<br/>
+
+<br/>
+<span class="id" title="var">Fail</span> <span class="id" title="keyword">Check</span> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#trans2"><span class="id" title="definition">trans2</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#trans3"><span class="id" title="definition">trans3</span></a>.<br/>
+
+<br/>
+<span class="id" title="var">Fail</span> <span class="id" title="keyword">Check</span> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#trans1"><span class="id" title="definition">trans1</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#trans3"><span class="id" title="definition">trans3</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Now prove that these are all equal (propositionally, but not judgmentally. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="trans_12"><span class="id" title="definition">trans_12</span></a><br/>
+: <span class="id" title="keyword">∀</span> <span class="id" title="var">A</span> (<span class="id" title="var">x</span> <span class="id" title="var">y</span> <span class="id" title="var">z</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a>) (<span class="id" title="var">H0</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a>) (<span class="id" title="var">H1</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#z"><span class="id" title="variable">z</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#trans1"><span class="id" title="definition">trans1</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#z"><span class="id" title="variable">z</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H0"><span class="id" title="variable">H0</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H1"><span class="id" title="variable">H1</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#trans2"><span class="id" title="definition">trans2</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#z"><span class="id" title="variable">z</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H0"><span class="id" title="variable">H0</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H1"><span class="id" title="variable">H1</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a name="trans_23"><span class="id" title="definition">trans_23</span></a><br/>
+: <span class="id" title="keyword">∀</span> <span class="id" title="var">A</span> (<span class="id" title="var">x</span> <span class="id" title="var">y</span> <span class="id" title="var">z</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a>) (<span class="id" title="var">H0</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a>) (<span class="id" title="var">H1</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#z"><span class="id" title="variable">z</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#trans2"><span class="id" title="definition">trans2</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#z"><span class="id" title="variable">z</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H0"><span class="id" title="variable">H0</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H1"><span class="id" title="variable">H1</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#trans3"><span class="id" title="definition">trans3</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#z"><span class="id" title="variable">z</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H0"><span class="id" title="variable">H0</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H1"><span class="id" title="variable">H1</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We can also prove associativity. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="trans_assoc"><span class="id" title="definition">trans_assoc</span></a><br/>
+: <span class="id" title="keyword">∀</span> <span class="id" title="var">A</span> (<span class="id" title="var">x</span> <span class="id" title="var">y</span> <span class="id" title="var">z</span> <span class="id" title="var">w</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a>) (<span class="id" title="var">H0</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a>) (<span class="id" title="var">H1</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#z"><span class="id" title="variable">z</span></a>) (<span class="id" title="var">H2</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#z"><span class="id" title="variable">z</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#w"><span class="id" title="variable">w</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#trans"><span class="id" title="definition">trans</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H0"><span class="id" title="variable">H0</span></a> (<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#trans"><span class="id" title="definition">trans</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H1"><span class="id" title="variable">H1</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H2"><span class="id" title="variable">H2</span></a>) <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#trans"><span class="id" title="definition">trans</span></a> (<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#trans"><span class="id" title="definition">trans</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H0"><span class="id" title="variable">H0</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H1"><span class="id" title="variable">H1</span></a>) <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H2"><span class="id" title="variable">H2</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="trans_Vp"><span class="id" title="definition">trans_Vp</span></a><br/>
+: <span class="id" title="keyword">∀</span> <span class="id" title="var">A</span> (<span class="id" title="var">x</span> <span class="id" title="var">y</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a>) (<span class="id" title="var">H</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#trans"><span class="id" title="definition">trans</span></a> (<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#sym"><span class="id" title="definition">sym</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H"><span class="id" title="variable">H</span></a>) <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H"><span class="id" title="variable">H</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="trans_sym"><span class="id" title="definition">trans_sym</span></a><br/>
+: <span class="id" title="keyword">∀</span> <span class="id" title="var">A</span> (<span class="id" title="var">x</span> <span class="id" title="var">y</span> <span class="id" title="var">z</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a>) (<span class="id" title="var">H0</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a>) (<span class="id" title="var">H1</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#z"><span class="id" title="variable">z</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#sym"><span class="id" title="definition">sym</span></a> (<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#trans"><span class="id" title="definition">trans</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H0"><span class="id" title="variable">H0</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H1"><span class="id" title="variable">H1</span></a>) <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#trans"><span class="id" title="definition">trans</span></a> (<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#sym"><span class="id" title="definition">sym</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H1"><span class="id" title="variable">H1</span></a>) (<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#sym"><span class="id" title="definition">sym</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H0"><span class="id" title="variable">H0</span></a>)<br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab4"></a><h3 class="section">Category theory</h3>
+
+<div class="paragraph"> </div>
+
+ Those of you familiar with category theory might find the following properties interesting. 
+<div class="paragraph"> </div>
+
+ All exercises in this section are optional homework. 
+<div class="paragraph"> </div>
+
+ We can look at <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#ap"><span class="id" title="definition">ap</span></a></span> as describing the action on morphisms (equality proofs) of any function; the type of morphisms from <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a></span> <span class="inlinecode">:</span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a></span> to <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a></span> <span class="inlinecode">:</span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a></span> is the type <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a></span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a></span>; the action of <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#f"><span class="id" title="variable">f</span></a></span> <span class="inlinecode">:</span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a></span> <span class="inlinecode">→</span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#B"><span class="id" title="variable">B</span></a></span> on a morphism <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#m"><span class="id" title="variable">m</span></a></span> <span class="inlinecode">:</span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a></span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a></span> is <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#ap"><span class="id" title="definition">ap</span></a></span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#f"><span class="id" title="variable">f</span></a></span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#m"><span class="id" title="variable">m</span></a></span> <span class="inlinecode">:</span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#f"><span class="id" title="variable">f</span></a></span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a></span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#f"><span class="id" title="variable">f</span></a></span> <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a></span>.  We can prove the relevant functoriality properties. 
+<div class="paragraph"> </div>
+
+ Action on identity: 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="ap_refl"><span class="id" title="definition">ap_refl</span></a><br/>
+: <span class="id" title="keyword">∀</span> {<span class="id" title="var">A</span> <span class="id" title="var">B</span>} (<span class="id" title="var">f</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#B"><span class="id" title="variable">B</span></a>) <span class="id" title="var">x</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#ap"><span class="id" title="definition">ap</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#f"><span class="id" title="variable">f</span></a> (<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a>) <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a> (<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#f"><span class="id" title="variable">f</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a>)<br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Action on composition: 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="ap_trans"><span class="id" title="definition">ap_trans</span></a><br/>
+: <span class="id" title="keyword">∀</span> {<span class="id" title="var">A</span> <span class="id" title="var">B</span>} (<span class="id" title="var">f</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#B"><span class="id" title="variable">B</span></a>) {<span class="id" title="var">x</span> <span class="id" title="var">y</span> <span class="id" title="var">z</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a>}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="var">H0</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a>) (<span class="id" title="var">H1</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#z"><span class="id" title="variable">z</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#ap"><span class="id" title="definition">ap</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#f"><span class="id" title="variable">f</span></a> (<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#trans"><span class="id" title="definition">trans</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H0"><span class="id" title="variable">H0</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H1"><span class="id" title="variable">H1</span></a>) <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#trans"><span class="id" title="definition">trans</span></a> (<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#ap"><span class="id" title="definition">ap</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#f"><span class="id" title="variable">f</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H0"><span class="id" title="variable">H0</span></a>) (<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#ap"><span class="id" title="definition">ap</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#f"><span class="id" title="variable">f</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H1"><span class="id" title="variable">H1</span></a>)<br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Action on inverses (additional rule for groupoids): 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="ap_sym"><span class="id" title="definition">ap_sym</span></a><br/>
+: <span class="id" title="keyword">∀</span> {<span class="id" title="var">A</span> <span class="id" title="var">B</span>} (<span class="id" title="var">f</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#B"><span class="id" title="variable">B</span></a>) {<span class="id" title="var">x</span> <span class="id" title="var">y</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a>}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="var">H</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#ap"><span class="id" title="definition">ap</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#f"><span class="id" title="variable">f</span></a> (<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#sym"><span class="id" title="definition">sym</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H"><span class="id" title="variable">H</span></a>) <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#sym"><span class="id" title="definition">sym</span></a> (<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#ap"><span class="id" title="definition">ap</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#f"><span class="id" title="variable">f</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#H"><span class="id" title="variable">H</span></a>)<br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Furthermore, every function that specifies the action of a natural transformation on objects is automatically natural: 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="concat_Ap"><span class="id" title="definition">concat_Ap</span></a><br/>
+: <span class="id" title="keyword">∀</span> {<span class="id" title="var">A</span> <span class="id" title="var">B</span>} (<span class="id" title="var">f</span> <span class="id" title="var">g</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#B"><span class="id" title="variable">B</span></a>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="var">T</span> : <span class="id" title="keyword">∀</span> <span class="id" title="var">x</span>, <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#f"><span class="id" title="variable">f</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#g"><span class="id" title="variable">g</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">∀</span> {<span class="id" title="var">x</span> <span class="id" title="var">y</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#A"><span class="id" title="variable">A</span></a>} (<span class="id" title="var">m</span> : <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#trans"><span class="id" title="definition">trans</span></a> (<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#ap"><span class="id" title="definition">ap</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#f"><span class="id" title="variable">f</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#m"><span class="id" title="variable">m</span></a>) (<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#T"><span class="id" title="variable">T</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#y"><span class="id" title="variable">y</span></a>) <a class="idref" href="http://coq.inria.fr/distrib/8.5beta2/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#trans"><span class="id" title="definition">trans</span></a> (<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#T"><span class="id" title="variable">T</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#x"><span class="id" title="variable">x</span></a>) (<a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#ap"><span class="id" title="definition">ap</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#g"><span class="id" title="variable">g</span></a> <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#m"><span class="id" title="variable">m</span></a>)<br/>
+&nbsp;&nbsp;:= <a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#admit"><span class="id" title="axiom">admit</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab5"></a><h3 class="section">Further exploration:</h3>
+
+
+<div class="paragraph"> </div>
+
+    These are completely optional, and moderately challenging.  If you are interested, here are some problems that draw interesting connections between this material and category theory.
+
+<div class="paragraph"> </div>
+
+1. Can you find and prove a statement relating <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#sym_sym"><span class="id" title="definition">sym_sym</span></a></span> to <span class="inlinecode"><span class="id" title="var">sym_trans</span></span>?
+
+<div class="paragraph"> </div>
+
+2. Can you find and prove a statement relating <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#sym"><span class="id" title="definition">sym</span></a></span> to <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#trans_assoc"><span class="id" title="definition">trans_assoc</span></a></span> and <span class="inlinecode"><span class="id" title="var">sym_trans</span></span> via <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#ap"><span class="id" title="definition">ap</span></a></span>?
+
+<div class="paragraph"> </div>
+
+3. The equality relation on a type forms a weak ω-groupoid (sometimes written as a weak ∞-groupoid).  This means that there is structure at every level.  The first few levels are given by <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#refl"><span class="id" title="abbreviation">refl</span></a></span>, <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#sym"><span class="id" title="definition">sym</span></a></span>, and <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#trans"><span class="id" title="definition">trans</span></a></span> (level 1); <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#sym_sym"><span class="id" title="definition">sym_sym</span></a></span>, <span class="inlinecode"><span class="id" title="var">sym_trans</span></span>, <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#trans_assoc"><span class="id" title="definition">trans_assoc</span></a></span>, <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#sym_refl"><span class="id" title="definition">sym_refl</span></a></span>, <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#trans_1p"><span class="id" title="definition">trans_1p</span></a></span>, <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#trans_p1"><span class="id" title="definition">trans_p1</span></a></span>, <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#trans_pV"><span class="id" title="definition">trans_pV</span></a></span>, and <span class="inlinecode"><a class="idref" href="Top.exercises_and_homework_day_2_filled_in.html#trans_Vp"><span class="id" title="definition">trans_Vp</span></a></span> (level 2).  The theorem statements in general are known as the Stasheff polyhedra or Stasheff associahedra.  Can you discover more of these rules? 
+</div>
+<div class="code">
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>
