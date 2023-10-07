@@ -1,0 +1,9 @@
+[submodule "social-interactions"]
+	path = social-interactions
+	url = https://github.com/JasonGross/social-interactions.git
+[submodule "stories"]
+	path = stories
+	url = https://github.com/JasonGross/stories.git
+[submodule "least_action"]
+	path = least_action
+	url = https://github.com/JasonGross/principle-of-least-action.git
